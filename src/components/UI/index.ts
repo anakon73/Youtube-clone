@@ -1,3 +1,4 @@
 import ButtonLogin from "./ButtonLogin.vue";
+import BaseIcon from "./BaseIcon.vue";
 
-export default [ButtonLogin];
+export default [ButtonLogin, BaseIcon];
