@@ -1,24 +1,23 @@
-import category from "../components/CategoryItem.vue";
+import BaseIcon from "../components/UI/BaseIcon.vue";
 import "../style.css";
 
 export default {
-  title: "category",
-  component: category,
+  title: "BaseIcon",
+  component: BaseIcon,
   parameters: {
     layout: "fullscreen",
   },
 };
 
 const Template = (args) => ({
-  components: { category },
+  components: { BaseIcon },
   setup() {
     return { args };
   },
-  template: '<category v-bind="args" />',
+  template: '<BaseIcon disabled v-bind="args" />',
 });
 
 export const Primary = Template.bind({});
 Primary.args = {
-  category: "All",
-  isActive: true,
+  name: "",
 };

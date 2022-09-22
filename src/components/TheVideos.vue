@@ -16,7 +16,7 @@ import VideoItem from "./VideoItem.vue";
         m-auto
       "
     >
-      <video-item v-for="i in 20" :key="i" :index="i" />
+      <video-item v-for="i in 25" :key="i" :index="i" />
     </div>
   </main>
 </template>

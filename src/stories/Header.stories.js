@@ -4,6 +4,9 @@ import "../style.css";
 export default {
   title: "Header",
   component: Header,
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 const Template = (args) => ({

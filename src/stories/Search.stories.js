@@ -4,6 +4,9 @@ import "../style.css";
 export default {
   title: "Search",
   component: Search,
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 const Template = (args) => ({

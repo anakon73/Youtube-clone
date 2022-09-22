@@ -4,6 +4,9 @@ import "../style.css";
 export default {
   title: "ButtonLogin",
   component: ButtonLogin,
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 const Template = (args) => ({

@@ -1,5 +1,6 @@
 import VideoItem from "../components/VideoItem.vue";
 import "../style.css";
+import "./index.css";
 
 export default {
   title: "VideoItem",
@@ -11,7 +12,7 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: '<VideoItem v-bind="args" />',
+  template: '<div  class="videoItem" ><VideoItem v-bind="args" /></div>',
 });
 
 export const Primary = Template.bind({});
