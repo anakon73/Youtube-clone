@@ -8,11 +8,6 @@ interface Props {
 
 const props = defineProps<Props>();
 
-// const props =
-//   defineProps<{
-//     category: string;
-//     isActive: boolean;
-//   }>();
 const { isActive } = toRefs(props);
 
 const classes = computed(() => {

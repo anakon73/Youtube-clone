@@ -3,7 +3,11 @@ import { ref } from "vue";
 import ButtonLogin from "./UI/ButtonLogin.vue";
 import SidebarNavItem from "./UI/SidebarNavItem.vue";
 
-const SidebarItemList = ref([{ label: "Home", icon: "home", isActive: true }]);
+const SidebarItemList = ref([
+  { label: "Home", icon: "home", isActive: true },
+  { label: "Trending", icon: "fire", isActive: false },
+  { label: "Subscriptions", icon: "collection", isActive: false },
+]);
 </script>
 
 <template>
@@ -23,72 +27,15 @@ const SidebarItemList = ref([{ label: "Home", icon: "home", isActive: true }]);
   >
     <section class="py-2 border-b">
       <ul>
-        <SidebarNavItem label="Home" icon="home" />
+        <SidebarNavItem label="Home" icon="home" is-active />
         <SidebarNavItem label="Trending" icon="fire" />
-
-        <li>
-          <a
-            href="#"
-            class="flex items-center px-6 py-2 text-sm hover:bg-gray-100"
-          >
-            <svg
-              class="w-6 h-6 mr-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"
-              ></path>
-            </svg>
-            <span>Subscriptions</span>
-          </a>
-        </li>
+        <SidebarNavItem label="Subscriptions" icon="collection" />
       </ul>
     </section>
     <section class="py-2 border-b">
       <ul>
-        <li>
-          <a
-            href="#"
-            class="flex items-center px-6 py-2 text-sm hover:bg-gray-100"
-          >
-            <svg
-              class="w-6 h-6 mr-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"
-              ></path>
-              <path
-                d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"
-              ></path>
-            </svg>
-            <span>Library</span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="flex items-center px-6 py-2 text-sm hover:bg-gray-100"
-          >
-            <svg
-              class="w-6 h-6 mr-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <span>History</span>
-          </a>
-        </li>
+        <SidebarNavItem label="Library" icon="duplicate" />
+        <SidebarNavItem label="History" icon="clock" />
       </ul>
     </section>
     <section class="px-8 py-4 leading-5 border-b">

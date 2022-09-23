@@ -23,5 +23,3 @@ const { icon, label, withSubMenu } = toRefs(props);
     </a>
   </li>
 </template>
-
-<style scoped></style>

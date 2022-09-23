@@ -4,7 +4,7 @@ import BaseIcon from "./BaseIcon.vue";
 interface Props {
   icon: any;
   label: string;
-  isActive: boolean;
+  isActive?: boolean;
 }
 const props = defineProps<Props>();
 const { icon, label, isActive } = toRefs(props);
@@ -18,7 +18,7 @@ const classes = computed(() => {
     "hover:bg-gray-100",
   ];
 
-  return isActive.value
+  return isActive?.value
     ? [
         ...classes,
         "font-medium",
@@ -29,7 +29,7 @@ const classes = computed(() => {
     : [...classes, "hover:bg-gray-100"];
 });
 const iconClasses = computed(() => {
-  return isActive.value ? "w-6 h-6 mr-6 text-red-500" : "w-6 h-6 mr-6";
+  return isActive?.value ? "w-6 h-6 mr-6 text-red-500" : "w-6 h-6 mr-6";
 });
 </script>
 

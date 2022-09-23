@@ -1,4 +1,4 @@
-import category from "../components/CategoryItem.vue";
+import category from "../components/UI/CategoryItem.vue";
 import "../style.css";
 
 export default {
