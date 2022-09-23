@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import ButtonLogin from "./UI/ButtonLogin.vue";
 import SidebarNavItem from "./UI/SidebarNavItem.vue";
+import SidebarSectionHeading from "./UI/SidebarSectionHeading.vue";
 
 const SidebarItemList = ref([
   { label: "Home", icon: "home", isActive: true },
@@ -45,9 +46,7 @@ const SidebarItemList = ref([
       <ButtonLogin class="mt-4">Sign In</ButtonLogin>
     </section>
     <section class="py-2 border-b">
-      <div class="uppercase text-sm font-semibold px-6 py-2">
-        Best of YouTube
-      </div>
+      <SidebarSectionHeading title="Best of YouTube" />
       <ul>
         <SidebarNavItem label="Music" icon="musicNote" />
         <SidebarNavItem label="Sports" icon="speakerphone" />
@@ -64,9 +63,7 @@ const SidebarItemList = ref([
       </ul>
     </section>
     <section class="py-2 border-b">
-      <div class="uppercase text-sm font-semibold px-6 py-2">
-        More from YouTube
-      </div>
+      <SidebarSectionHeading title="More from YouTube" />
       <ul>
         <SidebarNavItem label="YouTube Premium" icon="play" />
         <SidebarNavItem label="Live" icon="statusOnline" />
