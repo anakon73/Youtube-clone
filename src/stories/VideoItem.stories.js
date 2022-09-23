@@ -1,4 +1,4 @@
-import VideoItem from "../components/VideoItem.vue";
+import VideoItem from "../components/UI/VideoItem.vue";
 import "../style.css";
 import "./index.css";
 

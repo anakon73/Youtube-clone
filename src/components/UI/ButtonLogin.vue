@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import BaseIcon from "./BaseIcon.vue";
-name: "ButtonLogin";
 </script>
 
 <template>
@@ -18,7 +17,7 @@ name: "ButtonLogin";
       rounded-sm
     "
   >
-    <BaseIcon name="userCircle" />
+    <BaseIcon name="userCircle" class="mr-2 w-7 h-7" />
     <slot></slot>
   </button>
 </template>

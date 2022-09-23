@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import VideoItem from "./VideoItem.vue";
+import VideoItem from "./UI/VideoItem.vue";
 </script>
 
 <template>

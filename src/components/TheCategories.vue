@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import CategoryItem from "./CategoryItem.vue";
+import CategoryItem from "./UI/CategoryItem.vue";
 
 const categories = ref<string[]>([
   "All",

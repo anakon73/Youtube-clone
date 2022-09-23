@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "@vue/reactivity";
 import { defineProps } from "vue";
 import BaseIcon from "./BaseIcon.vue";
 interface Props {
@@ -7,6 +8,10 @@ interface Props {
 
 const props = defineProps<Props>();
 const { index } = props;
+const summary = computed(() => {
+  const days = index === 1 ? "day" : "days";
+  return `${index}K views &middot; ${index} ${days} ago`;
+});
 </script>
 
 <template>
@@ -22,7 +27,7 @@ const { index } = props;
         <span>Channel name {{ index }}</span>
         <BaseIcon class="w-3.5 h-3.5 ml-1 text-gray-400" name="checkCircle" />
       </div>
-      <div>{{ index }}K views &middot; {{ index }} day ago</div>
+      <div v-html="summary"></div>
     </div>
     <button
       class="
