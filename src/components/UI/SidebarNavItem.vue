@@ -16,6 +16,7 @@ const classes = computed(() => {
     "py-2",
     "text-sm",
     "hover:bg-gray-100",
+    "text-gray-700",
   ];
 
   return isActive?.value
