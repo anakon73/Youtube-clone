@@ -4,6 +4,7 @@ import ButtonLogin from "./UI/ButtonLogin.vue";
 import SidebarNavItem from "./UI/SidebarNavItem.vue";
 import SidebarSectionHeading from "./UI/SidebarSectionHeading.vue";
 import SidebarSelection from "./UI/SidebarSelection.vue";
+import TheFooter from "./TheFooter.vue";
 
 const SidebarItemList = ref([
   { label: "Home", icon: "home", isActive: true },
@@ -71,23 +72,7 @@ const SidebarItemList = ref([
       <SidebarNavItem label="Send feedback" icon="annotation"
     /></SidebarSelection>
     <SidebarSelection class="px-6 py-4 text-xs font-semibold space-y-4">
-      <div>
-        <a href="#" class="mr-2">About</a>
-        <a href="#" class="mr-2">Press</a>
-        <a href="#" class="mr-2">Copyright</a>
-        <a href="#" class="mr-2">Contact us</a>
-        <a href="#" class="mr-2">Creators</a>
-        <a href="#" class="mr-2">Advertise</a>
-        <a href="#" class="mr-2">Developers</a>
-      </div>
-      <div class="mt-4">
-        <a href="#" class="mr-2">Terms</a>
-        <a href="#" class="mr-2">Privacy</a>
-        <a href="#" class="mr-2">Policy & Safety</a>
-        <a href="#" class="mr-2">How YouTube works</a>
-        <a href="#" class="mr-2">Test new features</a>
-      </div>
-      <div class="mt-4 font-normal text-gray-500">&copy; 2022 Google LLC</div>
+      <TheFooter />
     </SidebarSelection>
   </aside>
 </template>
