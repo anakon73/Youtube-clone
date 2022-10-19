@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import SearchInput from "./SearchInput.vue";
-import SearchButton from "./SearchButton.vue";
+import SearchInput from "./UI/SearchInput.vue";
+import SearchButton from "./UI/SearchButton.vue";
 </script>
 
 <template>
