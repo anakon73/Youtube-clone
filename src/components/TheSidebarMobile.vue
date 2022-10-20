@@ -4,7 +4,6 @@ import SidebarContent from "./SidebarContent.vue";
 import LogoMain from "./UI/LogoMain.vue";
 import BaseIcon from "./UI/BaseIcon.vue";
 import TheSidebarMobileOverlay from "./TheSidebarMobileOverlay.vue";
-import { is } from "@babel/types";
 
 const mobileSidebar = ref();
 

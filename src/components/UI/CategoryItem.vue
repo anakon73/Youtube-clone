@@ -8,16 +8,16 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const { isActive } = toRefs(props);
+const { isActive, category } = toRefs(props);
 
 const classes = computed(() => {
-  const classes = ["px-3", " py-1", "transition", "border", " rounded-full"];
+  const classes = ["px-3", "py-1", "transition", "rounded-full", "border"];
   return isActive.value
     ? [
         ...classes,
-        "hover:bg-gray-500",
-        " bg-gray-600",
         "border-gray-700",
+        "bg-gray-600",
+        "hover:bg-gray-500",
         "text-white",
       ]
     : [...classes, "border-gray-300", "bg-gray-100", "hover:bg-gray-200"];
@@ -25,6 +25,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <a href="#" :class="classes">{{ category }}</a>
+  <a href="#" :class="classes">
+    {{ category }}
+  </a>
 </template>
-// hover:bg-gray-500 bg-gray-600 border-gray-700 text-white
