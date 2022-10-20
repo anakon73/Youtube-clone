@@ -1,9 +1,26 @@
 <script setup lang="ts">
+import { computed, toRefs } from "vue";
 import VideoItem from "./UI/VideoItem.vue";
+
+interface Props {
+  isSidebarOpen: boolean;
+}
+
+const props = defineProps<Props>();
+const { isSidebarOpen } = toRefs(props);
+
+const classes = computed(() => {
+  return [
+    isSidebarOpen.value ? "xl:ml-64" : "md:ml-24",
+    "pt-32",
+    "px-5",
+    "pb-5",
+  ];
+});
 </script>
 
 <template>
-  <main class="md:ml-24 xl:ml-64 pt-32 px-5 pb-5">
+  <main :class="classes">
     <div
       class="
         grid

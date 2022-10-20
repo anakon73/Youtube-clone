@@ -1,18 +1,21 @@
+<script setup lang="ts">
+import { computed } from "vue";
+
+const classes = computed(() => {
+  return [
+    "min-h-screen",
+    "overflow-auto",
+    "fixed",
+    "top-0",
+    "pt-14",
+    "bg-white",
+    "z-20",
+  ];
+});
+</script>
+
 <template>
-  <aside
-    class="
-      min-h-screen
-      hidden
-      md:block
-      xl:hidden
-      overflow-auto
-      fixed
-      top-0
-      pt-14
-      bg-white
-      z-20
-    "
-  >
+  <aside :class="classes">
     <section>
       <ul>
         <li>

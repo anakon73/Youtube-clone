@@ -1,17 +1,27 @@
 <script setup lang="ts">
+import { defineEmits } from "vue";
 import TheDropdownApps from "./TheDropdownApps.vue";
 import TheDropdownSettings from "./TheDropdownSettings.vue";
-import LogoMain from "./LogoMain.vue";
+import LogoMain from "./UI/LogoMain.vue";
 import TheSearch from "./TheSearch.vue";
 import ButtonLogin from "./UI/ButtonLogin.vue";
 import BaseIcon from "./UI/BaseIcon.vue";
+
+// const emit = defineEmits(["openMobileSidebar"]);
+const emit =
+  defineEmits<{
+    (e: "toggleSidebar", type: null): void;
+  }>();
 </script>
 
 <template>
   <header class="flex justify-between fixed z-30 w-full">
     <div class="lg:w-1/4 flex">
       <div class="flex items-center xl:w-64 xl:bg-white pl-4">
-        <button class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none">
+        <button
+          @click="$emit('toggleSidebar')"
+          class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none"
+        >
           <BaseIcon name="menu" />
         </button>
         <LogoMain />
