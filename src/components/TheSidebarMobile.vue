@@ -48,7 +48,7 @@ watch(isOpen, () => {
       ref="mobileSidebar"
       tabindex="-1"
       v-show="isOpen"
-      class="w-64 max-h-screen overflow-auto bg-white fixed z-40"
+      class="w-64 max-h-screen overflow-auto bg-white fixed z-40 outline-none"
     >
       <section class="flex items-center p-4 border-b sticky top-0 bg-white">
         <button @click="$emit('close')" class="ml-2 mr-6 focus:outline-none">

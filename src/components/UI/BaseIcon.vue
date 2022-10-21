@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import icons from "../../icons";
-import { defineProps, toRefs } from "vue";
 
 interface Props {
   name: keyof typeof icons;
@@ -8,7 +7,6 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const { name } = toRefs(props);
 const path = icons[props.name];
 </script>
 
