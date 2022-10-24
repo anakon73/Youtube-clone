@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import SidebarCompactNavItem from "./UI/SidebarCompactNavItem.vue";
 import { computed, ref } from "vue";
-import SidebarNavItem from "./UI/SidebarNavItem.vue";
+import { iconType } from "../icons";
 
-const navItems = ref([
+type navItem = {
+  label: string;
+  icon: iconType;
+  isActive: boolean;
+};
+
+const navItems = ref<navItem[]>([
   { label: "Home", icon: "home", isActive: true },
   { label: "Trending", icon: "fire", isActive: false },
   { label: "Subsctiptions", icon: "collection", isActive: false },

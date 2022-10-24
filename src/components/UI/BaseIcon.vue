@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import icons from "../../icons";
+import { computed } from "@vue/reactivity";
+import icons, { iconType } from "../../icons";
 
 interface Props {
-  name: keyof typeof icons;
+  name: iconType;
 }
 
 const props = defineProps<Props>();
 
-const path = icons[props.name];
+const path = computed(() => {
+  return icons[props.name];
+});
 </script>
 
 <template>

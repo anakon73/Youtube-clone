@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { defineProps, toRefs, computed } from "vue";
+import { iconType } from "../../icons";
 import BaseIcon from "./BaseIcon.vue";
 interface Props {
-  icon: any;
+  icon: iconType;
   label: string;
   isActive?: boolean;
 }
