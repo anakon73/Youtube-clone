@@ -8,11 +8,8 @@ import TheCategories from "./components/TheCategories.vue";
 import TheVideos from "./components/TheVideos.vue";
 
 const isCompactSidebarActive = ref<boolean>(false);
-
 const isMobileSidebarOpen = ref<boolean>(false);
-
 const isCompactSidebarOpen = ref<boolean>(false);
-
 const isSidebarOpen = ref<boolean>(false);
 
 const openMobileSidebar = () => {
@@ -31,16 +28,9 @@ const toggleSidebar = () => {
 };
 
 onMounted(() => {
-  if (window.innerWidth >= 768 && window.innerWidth < 1280) {
-    isCompactSidebarActive.value = true;
-  }
-  if (window.innerWidth >= 1280) {
-    isCompactSidebarActive.value = false;
-  }
   onResize();
   window.addEventListener("resize", onResize);
 });
-
 const onResize = () => {
   if (window.innerWidth < 768) {
     isCompactSidebarOpen.value = false;
@@ -51,6 +41,7 @@ const onResize = () => {
   } else {
     isCompactSidebarOpen.value = isCompactSidebarActive.value;
     isSidebarOpen.value = !isCompactSidebarActive.value;
+    isMobileSidebarOpen.value = false;
   }
 };
 </script>
@@ -63,5 +54,3 @@ const onResize = () => {
   <TheCategories :is-sidebar-open="isSidebarOpen" />
   <TheVideos :is-sidebar-open="isSidebarOpen" />
 </template>
-
-<style scoped></style>

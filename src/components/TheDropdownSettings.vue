@@ -1,6 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onClickOutside } from "@vueuse/core";
+import { ref, watch, nextTick } from "vue";
+import BaseIcon from "./UI/BaseIcon.vue";
 import DropdownSettingsListItem from "./UI/DropdownSettingsListItem.vue";
+
+const isOpen = ref<boolean>(false);
+const el = ref();
+const dropDown = ref();
+
+onClickOutside(el, () => {
+  isOpen.value = false;
+});
+
+watch(isOpen, () => {
+  nextTick(() => isOpen.value && dropDown.value.focus());
+});
 
 const listItems = ref([
   { label: "Appearance: Light", icon: "sun", withSubMenu: true },
@@ -16,34 +30,54 @@ const listItems = ref([
 </script>
 
 <template>
-  <div
-    class="
-      opacity-0
-      group-hover:opacity-100
-      absolute
-      top-9
-      -right-full
-      sm:right-0
-      bg-white
-      w-72
-      border border-t-0
-    "
-  >
-    <section class="py-2 border-b">
-      <ul>
-        <DropdownSettingsListItem
-          v-for="listItem in listItems.slice(0, 8)"
-          :key="listItem.label"
-          :label="listItem.label"
-          :icon="listItem.icon"
-          :with-sub-menu="listItem.withSubMenu"
-        />
-      </ul>
-    </section>
-    <section class="py-2">
-      <ul>
-        <DropdownSettingsListItem label="Restricted Mode: Off" withSubMenu />
-      </ul>
-    </section>
+  <div ref="el" class="relative">
+    <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+      <BaseIcon name="dotsVertical" class="h-5 w-5" />
+    </button>
+    <Transition
+      enter-active-class="transition ease-out duration-100"
+      enter-from-class="transform opacity-0 scale-95"
+      enter-to-class="transform opacity-100 scale-100"
+      leave-active-class="transition ease-in duration-75"
+      leave-from-class="transform opacity-100 scale-100"
+      leave-to-class="transform opacity-0 scale-95"
+    >
+      <div
+        ref="dropDown"
+        tabindex="-1"
+        @keydown.esc="isOpen = false"
+        v-show="isOpen"
+        class="
+          absolute
+          top-9
+          -right-full
+          w-72
+          border border-t-0
+          bg-white
+          sm:right-0
+          outline-none
+        "
+      >
+        <section class="border-b py-2">
+          <ul>
+            <DropdownSettingsListItem
+              v-for="listItem in listItems.slice(0, 8)"
+              :key="listItem.label"
+              :label="listItem.label"
+              :icon="listItem.icon"
+              :with-sub-menu="listItem.withSubMenu"
+            />
+          </ul>
+        </section>
+        <section class="py-2">
+          <ul>
+            <DropdownSettingsListItem
+              label="Restricted Mode: Off"
+              withSubMenu
+            />
+          </ul>
+        </section>
+      </div>
+    </Transition>
   </div>
 </template>
