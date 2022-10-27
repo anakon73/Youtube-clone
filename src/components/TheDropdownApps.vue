@@ -47,16 +47,7 @@ onUnmounted(() => {
         ref="dropDown"
         tabindex="-1"
         @keydown.esc="isOpen = false"
-        class="
-          absolute
-          top-9
-          right-0
-          w-60
-          border border-t-0
-          bg-white
-          sm:left-0
-          outline-none
-        "
+        class="absolute top-9 right-0 w-60 border border-t-0 bg-white sm:left-0 outline-none"
       >
         <section class="border-b py-2">
           <ul>

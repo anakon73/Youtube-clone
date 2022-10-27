@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import TheHeader from "./components/TheHeader.vue";
 import TheSidebarCompact from "./components/TheSidebarCompact.vue";
 import TheSidebar from "./components/TheSidebar.vue";
@@ -27,10 +27,6 @@ const toggleSidebar = () => {
   }
 };
 
-onMounted(() => {
-  onResize();
-  window.addEventListener("resize", onResize);
-});
 const onResize = () => {
   if (window.innerWidth < 768) {
     isCompactSidebarOpen.value = false;
@@ -44,6 +40,15 @@ const onResize = () => {
     isMobileSidebarOpen.value = false;
   }
 };
+
+onMounted(() => {
+  onResize();
+  window.addEventListener("resize", onResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", onResize);
+});
 </script>
 
 <template>

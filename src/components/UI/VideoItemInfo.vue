@@ -2,6 +2,7 @@
 import { computed } from "@vue/reactivity";
 import { defineProps } from "vue";
 import BaseIcon from "./BaseIcon.vue";
+import VideoItemInfoDropdown from "./VideoItemInfoDropdown.vue";
 interface Props {
   index: number;
 }
@@ -29,19 +30,6 @@ const summary = computed(() => {
       </div>
       <div v-html="summary"></div>
     </div>
-    <button
-      class="
-        -mt-1
-        ml-auto
-        p-1
-        opacity-0
-        group-hover:opacity-100
-        text-gray-500
-        hover:text-gray-700
-        focus:outline-none
-      "
-    >
-      <BaseIcon name="dotsVertical" />
-    </button>
+    <VideoItemInfoDropdown />
   </div>
 </template>
