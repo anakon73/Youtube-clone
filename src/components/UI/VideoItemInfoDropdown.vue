@@ -30,7 +30,7 @@ const getPositionClasses = (event: {
   clientY: any;
   currentTarget: { offsetHeight: any };
 }) => {
-  return [getTopClass(event), getRightClass(), getLeftClass()];
+  return [getTopClass(event), getRightClass(event), getLeftClass(event)];
 };
 
 const getTopClass = (event: {
@@ -49,8 +49,49 @@ const getTopClass = (event: {
 
   return "top-9";
 };
-const getRightClass = () => {};
-const getLeftClass = () => {};
+const getRightClass = (event: {
+  clientX: any;
+  clientY: any;
+  currentTarget: { offsetHeight: any };
+}) => {
+  const clickCoordX = event.clientX;
+  const clickCoordY = event.clientY;
+  const buttonHeight = event.currentTarget.offsetHeight;
+  const dropdownWidth = dropDown.value.offsetWidth;
+  const dropdownHeight = dropDown.value.offsetHeight;
+  if (window.innerWidth - clickCoordX > dropdownWidth) {
+    return "right-auto";
+  }
+  if (window.innerHeight - clickCoordY > dropdownHeight + buttonHeight) {
+    return "right-0";
+  }
+  if (window.innerHeight - clickCoordY > dropdownHeight) {
+    return "right-8";
+  }
+  return "right-0";
+};
+const getLeftClass = (event: {
+  clientX: any;
+  clientY: any;
+  currentTarget: { offsetHeight: any };
+}) => {
+  const clickCoordX = event.clientX;
+  const clickCoordY = event.clientY;
+  const buttonHeight = event.currentTarget.offsetHeight;
+  const dropdownWidth = dropDown.value.offsetWidth;
+  const dropdownHeight = dropDown.value.offsetHeight;
+
+  if (window.innerWidth - clickCoordX < dropdownWidth) {
+    return "left-auto";
+  }
+  if (window.innerHeight - clickCoordY < dropdownHeight) {
+    return "left-auto";
+  }
+  if (window.innerHeight - clickCoordY > dropdownHeight + buttonHeight) {
+    return "left-auto";
+  }
+  return "left-8";
+};
 
 onKeyStroke("Escape", () => {
   isOpen.value = false;
@@ -70,13 +111,15 @@ const buttonClasses = computed(() => {
 });
 const dropdownClasses = computed(() => {
   return [
+    "z-10",
     "absolute",
-    "-right-full",
+    // "-right-full",
+    // "sm:right-0",
+    // "top-9",
     "w-48",
     "rounded",
     "shadow",
     "bg-white",
-    "sm:right-0",
     "outline-none",
     ...positionClasses.value,
   ];
