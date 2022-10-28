@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onClickOutside } from "@vueuse/core";
-import { onMounted, onUnmounted, ref, watch, nextTick } from "vue";
+import { ref, watch, nextTick } from "vue";
 import BaseIcon from "./UI/BaseIcon.vue";
 import DropdownAppsListItem from "./UI/DropdownAppsListItem.vue";
 

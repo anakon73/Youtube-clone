@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onClickOutside, onKeyStroke } from "@vueuse/core";
-import { computed, nextTick, ref, watch } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import BaseIcon from "./BaseIcon.vue";
 import VideoItemListItem from "./VideoItemListItem.vue";
 
@@ -13,7 +13,11 @@ onClickOutside(el, () => {
   isOpen.value = false;
 });
 
+// onMounted(() => {window.addEventListener("scroll", () => (isOpen.value = false));});
+
 watch(isOpen, () => {
+  // document.body.classList.toggle("overflow-hidden");
+
   nextTick(() => isOpen.value && dropDown.value);
 });
 
@@ -21,73 +25,86 @@ const toggle = (event: Event) => {
   isOpen.value = !isOpen.value;
   if (isOpen.value) {
     nextTick(() => {
-      positionClasses.value = getPositionClasses(event);
+      if (
+        event instanceof MouseEvent &&
+        event.currentTarget instanceof HTMLElement
+      ) {
+        positionClasses.value = getPositionClasses(
+          event.clientY,
+          event.clientX,
+          event.currentTarget.offsetHeight
+        );
+      }
     });
   }
 };
 
-const getPositionClasses = (event: {
-  clientY: any;
-  currentTarget: { offsetHeight: any };
-}) => {
-  return [getTopClass(event), getRightClass(event), getLeftClass(event)];
+const getPositionClasses = (
+  clientY: number,
+  clientX: number,
+  offsetHeight: number
+) => {
+  return [
+    getTopClass(clientY, offsetHeight),
+    getBottomClass(clientY, offsetHeight),
+    getRightClass(clientY, clientX, offsetHeight),
+    getLeftClass(clientY, clientX, offsetHeight),
+  ];
 };
 
-const getTopClass = (event: {
-  clientY: any;
-  currentTarget: { offsetHeight: any };
-}) => {
-  const clickCoordY = event.clientY;
-  const buttonHeight = event.currentTarget.offsetHeight;
+const getTopClass = (clickCoordY: number, offsetHeight: number) => {
   const dropdownHeight = dropDown.value.offsetHeight;
   if (window.innerHeight - clickCoordY < dropdownHeight) {
     return "-top-14";
   }
-  if (window.innerHeight - clickCoordY < dropdownHeight + buttonHeight) {
+  if (window.innerHeight - clickCoordY < dropdownHeight + offsetHeight) {
     return "top-0";
   }
 
-  return "top-9";
+  return "top-8";
 };
-const getRightClass = (event: {
-  clientX: any;
-  clientY: any;
-  currentTarget: { offsetHeight: any };
-}) => {
-  const clickCoordX = event.clientX;
-  const clickCoordY = event.clientY;
-  const buttonHeight = event.currentTarget.offsetHeight;
+
+const getBottomClass = (clickCoordY: number, offsetHeight: number) => {
+  if (window.innerHeight - clickCoordY < offsetHeight) {
+    return "bottom-9";
+  }
+  return "buttom-auto";
+};
+
+const getRightClass = (
+  clientY: number,
+  clientX: number,
+  offsetHeight: number
+) => {
   const dropdownWidth = dropDown.value.offsetWidth;
   const dropdownHeight = dropDown.value.offsetHeight;
-  if (window.innerWidth - clickCoordX > dropdownWidth) {
+  if (window.innerWidth - clientX > dropdownWidth) {
     return "right-auto";
   }
-  if (window.innerHeight - clickCoordY > dropdownHeight + buttonHeight) {
+  if (window.innerHeight - clientY > dropdownHeight + offsetHeight) {
     return "right-0";
   }
-  if (window.innerHeight - clickCoordY > dropdownHeight) {
+  if (window.innerHeight - clientY > dropdownHeight) {
     return "right-8";
   }
   return "right-0";
 };
-const getLeftClass = (event: {
-  clientX: any;
-  clientY: any;
-  currentTarget: { offsetHeight: any };
-}) => {
-  const clickCoordX = event.clientX;
-  const clickCoordY = event.clientY;
-  const buttonHeight = event.currentTarget.offsetHeight;
+
+const getLeftClass = (
+  clientY: number,
+  clientX: number,
+  offsetHeight: number
+) => {
   const dropdownWidth = dropDown.value.offsetWidth;
   const dropdownHeight = dropDown.value.offsetHeight;
 
-  if (window.innerWidth - clickCoordX < dropdownWidth) {
+  if (window.innerWidth - clientX < dropdownWidth) {
     return "left-auto";
   }
-  if (window.innerHeight - clickCoordY < dropdownHeight) {
+  if (window.innerHeight - clientY < dropdownHeight) {
     return "left-auto";
   }
-  if (window.innerHeight - clickCoordY > dropdownHeight + buttonHeight) {
+  if (window.innerHeight - clientY > dropdownHeight + offsetHeight) {
     return "left-auto";
   }
   return "left-8";
@@ -102,20 +119,17 @@ const buttonClasses = computed(() => {
     "-mt-1",
     "ml-auto",
     "p-1",
-    "opacity-0",
-    "group-hover:opacity-100",
     "text-gray-500",
     "hover:text-gray-700",
     "focus:outline-none",
+    "group-hover:opacity-100",
+    isOpen.value ? "opacity-100" : "opacity-0",
   ];
 });
 const dropdownClasses = computed(() => {
   return [
-    "z-10",
+    "z-30",
     "absolute",
-    // "-right-full",
-    // "sm:right-0",
-    // "top-9",
     "w-48",
     "rounded",
     "shadow",
