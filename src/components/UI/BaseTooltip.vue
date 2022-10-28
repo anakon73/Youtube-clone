@@ -4,30 +4,42 @@ import { computed, ref, toRefs } from "vue";
 interface Props {
   text: string;
   top?: boolean;
+  right?: boolean;
+  left?: boolean;
 }
 
 const props = defineProps<Props>();
 
-const { text, top } = toRefs(props);
+const { text, top, left, right } = toRefs(props);
 
 const isShown = ref(false);
 
-const classes = computed(() => {
-  return [
-    "bg-gray-600",
-    "bg-opacity-80",
-    "rounded-sm",
-    "text-white",
-    "text-xs",
-    "whitespace-nowrap",
-    "p-2",
-    "absolute",
-    "left-1/2",
-    "transform",
-    "-translate-x-1/2",
-    top?.value ? "bottom-12" : "top-14",
-  ];
-});
+const getPositionClasses = () => {
+  const topClass = top?.value ? "bottom-12" : "top-14";
+
+  if (right?.value) {
+    return [topClass, "left-0"];
+  }
+  if (left?.value) {
+    return [topClass, "right-0"];
+  }
+  return [topClass, "left-1/2", "-translate-x-1/2"];
+};
+
+type classesType = string[] | any[];
+
+const classes = ref<classesType>([
+  "bg-gray-600",
+  "bg-opacity-80",
+  "rounded-sm",
+  "text-white",
+  "text-xs",
+  "whitespace-nowrap",
+  "p-2",
+  "absolute",
+  "transform",
+  ...getPositionClasses(),
+]);
 </script>
 
 <template>
