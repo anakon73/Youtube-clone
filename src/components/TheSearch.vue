@@ -4,7 +4,7 @@ import SearchButton from "./UI/SearchButton.vue";
 </script>
 
 <template>
-  <div class="flex w-full h-full">
+  <div class="flex w-full h-full mr-2">
     <SearchInput />
     <SearchButton />
   </div>

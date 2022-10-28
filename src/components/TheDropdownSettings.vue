@@ -2,11 +2,24 @@
 import { onClickOutside } from "@vueuse/core";
 import { ref, watch, nextTick } from "vue";
 import BaseIcon from "./UI/BaseIcon.vue";
+import BaseTooltip from "./UI/BaseTooltip.vue";
 import DropdownSettingsListItem from "./UI/DropdownSettingsListItem.vue";
 
 const isOpen = ref<boolean>(false);
 const el = ref();
 const dropDown = ref();
+const dropdownClasses = ref<string[]>([
+  "z-10",
+  "absolute",
+  "top-9",
+  "-right-full",
+  "sm:right-0",
+  "bg-white",
+  "w-72",
+  "border",
+  "border-t-0",
+  "focus:outline-none",
+]);
 
 onClickOutside(el, () => {
   isOpen.value = false;
@@ -31,9 +44,11 @@ const listItems = ref([
 
 <template>
   <div ref="el" class="relative">
-    <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
-      <BaseIcon name="dotsVertical" class="h-5 w-5" />
-    </button>
+    <BaseTooltip text="Settings">
+      <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+        <BaseIcon name="dotsVertical" class="h-5 w-5" />
+      </button>
+    </BaseTooltip>
     <Transition
       enter-active-class="transition ease-out duration-100"
       enter-from-class="transform opacity-0 scale-95"
@@ -47,16 +62,7 @@ const listItems = ref([
         tabindex="-1"
         @keydown.esc="isOpen = false"
         v-show="isOpen"
-        class="
-          absolute
-          top-9
-          -right-full
-          w-72
-          border border-t-0
-          bg-white
-          sm:right-0
-          outline-none
-        "
+        :class="dropdownClasses"
       >
         <section class="border-b py-2">
           <ul>

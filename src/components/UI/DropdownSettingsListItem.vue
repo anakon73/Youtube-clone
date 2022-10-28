@@ -12,10 +12,7 @@ const { icon, label, withSubMenu } = toRefs(props);
 
 <template>
   <li>
-    <a
-      href="#"
-      class="flex items-center pl-5 pl-8 py-2 text-sm hover:bg-gray-200"
-    >
+    <a href="#" class="flex items-center pl-5 py-2 text-sm hover:bg-gray-200">
       <BaseIcon v-if="icon" :name="icon" class="w-5 h-5 mr-4 text-gray-400" />
       <span>{{ label }}</span>
       <BaseIcon
