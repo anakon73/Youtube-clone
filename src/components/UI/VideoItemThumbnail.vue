@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 import BaseIcon from "./BaseIcon.vue";
+import VideoItemThumbnailButton from "./VideoItemThumbnailButton.vue";
 
 interface Props {
   index: number;
@@ -13,56 +14,14 @@ const { index } = props;
 <template>
   <div class="relative">
     <img :src="`https://picsum.photos/seed/image${index}/720/404`" />
+    <VideoItemThumbnailButton icon="clock" label="Watch later" class="top-0" />
+    <VideoItemThumbnailButton
+      icon="menuAlt3"
+      label="add to queue"
+      class="top-8"
+    />
     <span
-      class="
-        opacity-0
-        group-hover:opacity-100
-        bg-opacity-60
-        absolute
-        top-0
-        right-0
-        bg-black
-        text-white
-        rounded-sm
-        m-1
-        p-1
-      "
-    >
-      <BaseIcon name="clock" class="w-5 h-5" />
-    </span>
-    <span
-      class="
-        opacity-0
-        group-hover:opacity-100
-        bg-opacity-60
-        absolute
-        top-8
-        right-0
-        bg-black
-        text-white
-        rounded-sm
-        m-1
-        p-1
-      "
-    >
-      <BaseIcon name="menuAlt3" class="h-5 w-5" />
-    </span>
-    <span
-      class="
-        opacity-100
-        group-hover:opacity-0
-        duration-500
-        absolute
-        bottom-0
-        right-0
-        bg-black
-        text-white
-        rounded-sm
-        m-1
-        p-1
-        text-xs
-        font-semibold
-      "
+      class="opacity-100 group-hover:opacity-0 duration-500 absolute bottom-0 right-0 bg-black text-white rounded-sm m-1 p-1 text-xs font-semibold"
       >6:35</span
     >
   </div>

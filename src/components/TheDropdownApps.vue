@@ -1,12 +1,25 @@
 <script setup lang="ts">
 import { onClickOutside } from "@vueuse/core";
-import { onMounted, onUnmounted, ref, watch, nextTick } from "vue";
+import { ref, watch, nextTick } from "vue";
 import BaseIcon from "./UI/BaseIcon.vue";
+import BaseTooltip from "./UI/BaseTooltip.vue";
 import DropdownAppsListItem from "./UI/DropdownAppsListItem.vue";
 
 const isOpen = ref<boolean>(false);
 const dropDown = ref();
 const el = ref();
+const dropdownClasses = ref<string[]>([
+  "z-10",
+  "absolute",
+  "top-9",
+  "right-0",
+  "sm:left-0",
+  "bg-white",
+  "w-60",
+  "border",
+  "border-t-0",
+  "focus:outline-none",
+]);
 
 onClickOutside(el, () => {
   isOpen.value = false;
@@ -31,9 +44,11 @@ onUnmounted(() => {
 
 <template>
   <div ref="el" class="relative">
-    <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
-      <BaseIcon name="viewGrid" class="h-5 w-5" />
-    </button>
+    <BaseTooltip text="YouTube apps">
+      <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+        <BaseIcon name="viewGrid" class="h-5 w-5" />
+      </button>
+    </BaseTooltip>
     <transition
       enter-active-class="transition ease-out duration-100"
       enter-from-class="transform opacity-0 scale-95"
@@ -47,16 +62,7 @@ onUnmounted(() => {
         ref="dropDown"
         tabindex="-1"
         @keydown.esc="isOpen = false"
-        class="
-          absolute
-          top-9
-          right-0
-          w-60
-          border border-t-0
-          bg-white
-          sm:left-0
-          outline-none
-        "
+        :class="dropdownClasses"
       >
         <section class="border-b py-2">
           <ul>
