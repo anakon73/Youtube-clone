@@ -52,10 +52,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <TheHeader @toggle-sidebar="toggleSidebar" />
+  <div class="fixed z-30 w-full">
+    <TheHeader @toggle-sidebar="toggleSidebar" />
+    <TheCategories :is-sidebar-open="isSidebarOpen" />
+  </div>
   <TheSidebarCompact v-if="isCompactSidebarOpen" />
   <TheSidebar v-if="isSidebarOpen" />
   <TheSidebarMobile :isOpen="isMobileSidebarOpen" @close="closeMobileSidebar" />
-  <TheCategories :is-sidebar-open="isSidebarOpen" />
   <TheVideos :is-sidebar-open="isSidebarOpen" />
 </template>

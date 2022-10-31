@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRefs } from "vue";
+import { ref, toRefs } from "vue";
 
 interface Props {
   text: string;
@@ -26,9 +26,7 @@ const getPositionClasses = () => {
   return [topClass, "left-1/2", "-translate-x-1/2"];
 };
 
-type classesType = string[] | any[];
-
-const classes = ref<classesType>([
+const classes = ref<string[]>([
   "bg-gray-600",
   "bg-opacity-80",
   "rounded-sm",
