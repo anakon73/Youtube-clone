@@ -3,9 +3,11 @@ import { onClickOutside } from "@vueuse/core";
 import { ref, watch, nextTick } from "vue";
 import BaseIcon from "./UI/BaseIcon.vue";
 import BaseTooltip from "./UI/BaseTooltip.vue";
-import DropdownSettingsListItem from "./UI/DropdownSettingsListItem.vue";
+import TheDropDownSettingsMain from "./TheDropDownSettingsMain.vue";
+import DropdownSettingsAppearance from "./UI/DropdownSettingsAppearance.vue";
 
 const isOpen = ref<boolean>(false);
+const selectedMenu = ref<string>("main");
 const el = ref();
 const dropDown = ref();
 const dropdownClasses = ref<string[]>([
@@ -25,21 +27,15 @@ onClickOutside(el, () => {
   isOpen.value = false;
 });
 
+const showSelectedMenu = () => {
+  if (selectedMenu.value === "main") {
+    selectedMenu.value = "appearance";
+  }
+};
+
 watch(isOpen, () => {
   nextTick(() => isOpen.value && dropDown.value.focus());
 });
-
-const listItems = ref([
-  { label: "Appearance: Light", icon: "sun", withSubMenu: true },
-  { label: "Language: English", icon: "translate", withSubMenu: true },
-  { label: "Location: Ukraine", icon: "globeAlt", withSubMenu: true },
-  { label: "Your data in YouTube", icon: "shieldCheck", withSubMenu: false },
-  { label: "Help", icon: "questionMarkCircle", withSubMenu: false },
-  { label: "Send feedback", icon: "chatAlt", withSubMenu: false },
-  { label: "Appearance: Light", icon: "calculator", withSubMenu: false },
-  { label: "Keyboard shortcuts", icon: "sun", withSubMenu: false },
-  { label: "Restricted Mode: Off", withSubMenu: true },
-]);
 </script>
 
 <template>
@@ -64,25 +60,14 @@ const listItems = ref([
         v-show="isOpen"
         :class="dropdownClasses"
       >
-        <section class="border-b py-2">
-          <ul>
-            <DropdownSettingsListItem
-              v-for="listItem in listItems.slice(0, 8)"
-              :key="listItem.label"
-              :label="listItem.label"
-              :icon="listItem.icon"
-              :with-sub-menu="listItem.withSubMenu"
-            />
-          </ul>
-        </section>
-        <section class="py-2">
-          <ul>
-            <DropdownSettingsListItem
-              label="Restricted Mode: Off"
-              withSubMenu
-            />
-          </ul>
-        </section>
+        <TheDropDownSettingsMain
+          v-if="selectedMenu === 'main'"
+          @select-menu="showSelectedMenu"
+        />
+        <DropdownSettingsAppearance
+          v-else-if="selectedMenu === 'appearance'"
+          @select-menu="showSelectedMenu"
+        />
       </div>
     </Transition>
   </div>

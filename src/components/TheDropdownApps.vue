@@ -27,19 +27,6 @@ onClickOutside(el, () => {
 watch(isOpen, () => {
   nextTick(() => isOpen.value && dropDown.value.focus());
 });
-
-/* const closeDropDown = (event: Event) => {
-  if (!el.value.contains(event.target)) {
-    isOpen.value = false;
-  }
-};
-
-onMounted(() => {
-  window.addEventListener("click", closeDropDown);
-});
-onUnmounted(() => {
-  window.removeEventListener("click", closeDropDown);
-}); */
 </script>
 
 <template>
