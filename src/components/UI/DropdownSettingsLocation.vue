@@ -3,8 +3,8 @@ import { ref } from "vue";
 import DropdownSettingsHeader from "./DropdownSettingsHeader.vue";
 import DropdownSettingsListItem from "./DropdownSettingsListItem.vue";
 
-const selectedThemeId = ref<number>(0);
-const themes = ref<string[]>(["Use device Theme", "Dark theme", "White theme"]);
+const selectedLocationId = ref<number>(0);
+const locations = ref<string[]>(["United States", "Russia", "Ukraine"]);
 
 const emits = defineEmits(["select-menu"]);
 </script>
@@ -12,20 +12,17 @@ const emits = defineEmits(["select-menu"]);
 <template>
   <DropdownSettingsHeader
     @back="$emit('select-menu', 'main')"
-    title="Appearance"
+    title="Choose your location"
   />
   <section class="border-b py-2">
-    <div class="text-gray-500 text-xs p-3">
-      Setting applies to this browser only
-    </div>
     <ul>
       <DropdownSettingsListItem
-        v-for="(theme, themeId) in themes"
+        v-for="(location, locationId) in locations"
         icon="check"
-        :key="themeId"
-        :label="theme"
-        :active="themeId === selectedThemeId"
-        @click="selectedThemeId = themeId"
+        :key="locationId"
+        :label="location"
+        :active="locationId === selectedLocationId"
+        @click="selectedLocationId = locationId"
       />
     </ul>
   </section>

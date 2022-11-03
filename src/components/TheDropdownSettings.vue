@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onClickOutside } from "@vueuse/core";
-import { ref, watch, nextTick } from "vue";
+import { onClickOutside, whenever } from "@vueuse/core";
+import { ref, nextTick } from "vue";
 import BaseIcon from "./UI/BaseIcon.vue";
 import BaseTooltip from "./UI/BaseTooltip.vue";
 import TheDropDownSettingsMain from "./TheDropDownSettingsMain.vue";
 import DropdownSettingsAppearance from "./UI/DropdownSettingsAppearance.vue";
+import DropdownSettingsLanguage from "./UI/DropdownSettingsLanguage.vue";
+import DropdownSettingsLocation from "./UI/DropdownSettingsLocation.vue";
 
 const isOpen = ref<boolean>(false);
 const selectedMenu = ref<string>("main");
@@ -23,25 +25,39 @@ const dropdownClasses = ref<string[]>([
   "focus:outline-none",
 ]);
 
-onClickOutside(el, () => {
-  isOpen.value = false;
-});
-
-const showSelectedMenu = () => {
-  if (selectedMenu.value === "main") {
-    selectedMenu.value = "appearance";
-  }
+const toggle = () => {
+  isOpen.value ? close() : open();
 };
 
-watch(isOpen, () => {
-  nextTick(() => isOpen.value && dropDown.value.focus());
+const open = () => {
+  isOpen.value = true;
+};
+
+const close = () => {
+  isOpen.value = false;
+  setTimeout(() => {
+    selectedMenu.value = "main";
+  }, 100);
+};
+
+onClickOutside(el, toggle);
+
+const showSelectedMenu = (selectMenu: string) => {
+  selectedMenu.value = selectMenu;
+  dropDown.value.focus();
+};
+
+whenever(isOpen, () => {
+  nextTick(() => {
+    dropDown.value.focus();
+  });
 });
 </script>
 
 <template>
   <div ref="el" class="relative">
     <BaseTooltip text="Settings">
-      <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+      <button @click="toggle" class="relative p-2 focus:outline-none">
         <BaseIcon name="dotsVertical" class="h-5 w-5" />
       </button>
     </BaseTooltip>
@@ -56,7 +72,7 @@ watch(isOpen, () => {
       <div
         ref="dropDown"
         tabindex="-1"
-        @keydown.esc="isOpen = false"
+        @keydown.esc="close"
         v-show="isOpen"
         :class="dropdownClasses"
       >
@@ -66,6 +82,14 @@ watch(isOpen, () => {
         />
         <DropdownSettingsAppearance
           v-else-if="selectedMenu === 'appearance'"
+          @select-menu="showSelectedMenu"
+        />
+        <DropdownSettingsLanguage
+          v-else-if="selectedMenu === 'language'"
+          @select-menu="showSelectedMenu"
+        />
+        <DropdownSettingsLocation
+          v-else-if="selectedMenu === 'location'"
           @select-menu="showSelectedMenu"
         />
       </div>

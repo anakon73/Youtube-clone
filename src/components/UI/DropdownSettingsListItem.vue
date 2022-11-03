@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { computed, defineProps, toRefs } from "vue";
+import { computed, toRefs } from "vue";
 import BaseIcon from "./BaseIcon.vue";
 import { iconType } from "../../icons";
 
 interface Props {
   active?: boolean;
-  icon: iconType;
+  icon?: iconType;
   label: string;
   withSubMenu?: boolean;
 }
+
 const props = defineProps<Props>();
 const { active, icon, label, withSubMenu } = toRefs(props);
 
 const isIconShown = computed(() => {
-  return active?.value || icon.value !== "check";
+  return active?.value || icon?.value !== "check";
 });
 const iconName = computed(() => {
-  return active?.value ? "check" : icon.value;
+  return active?.value ? "check" : icon?.value;
 });
 </script>
 
