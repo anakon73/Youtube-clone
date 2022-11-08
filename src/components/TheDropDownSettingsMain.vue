@@ -66,6 +66,14 @@ const listItems = ref<item[]>([
     withSubMenu: true,
   },
 ]);
+
+const emit = defineEmits(["select-menu"]);
+
+const onMenuClick = (withSubMenu: boolean, id: string) => {
+  if (withSubMenu) {
+    emit("select-menu", id);
+  }
+};
 </script>
 
 <template>
@@ -77,7 +85,7 @@ const listItems = ref<item[]>([
         :label="listItem.label"
         :icon="listItem.icon"
         :with-sub-menu="listItem.withSubMenu"
-        @click.stop="$emit('select-menu', listItem.id)"
+        @click.stop="onMenuClick(listItem.withSubMenu, listItem.id)"
       />
     </ul>
   </section>
@@ -87,7 +95,7 @@ const listItems = ref<item[]>([
         label="Restricted Mode: Off"
         :icon="listItems[8].icon"
         withSubMenu
-        @click.stop="$emit('select-menu', listItems[8].id)"
+        @click.stop="onMenuClick(listItems[8].withSubMenu, listItems[8].id)"
       />
     </ul>
   </section>

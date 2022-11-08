@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onClickOutside, whenever } from "@vueuse/core";
-import { ref, nextTick } from "vue";
+import { ref, nextTick, computed, type Component } from "vue";
 import BaseIcon from "./UI/BaseIcon.vue";
 import BaseTooltip from "./UI/BaseTooltip.vue";
 import TheDropDownSettingsMain from "./TheDropDownSettingsMain.vue";
@@ -9,8 +9,18 @@ import DropdownSettingsLanguage from "./UI/DropdownSettingsLanguage.vue";
 import DropdownSettingsLocation from "./UI/DropdownSettingsLocation.vue";
 import DropdownSettingsRestrictedMode from "./UI/DropdownSettingsRestrictedMode.vue";
 
+const menuComponentNames = {
+  main: TheDropDownSettingsMain,
+  appearance: DropdownSettingsAppearance,
+  language: DropdownSettingsLanguage,
+  location: DropdownSettingsLocation,
+  restricted_mode: DropdownSettingsRestrictedMode,
+};
+
+type IMenu = keyof typeof menuComponentNames;
+
 const isOpen = ref<boolean>(false);
-const selectedMenu = ref<string>("main");
+const selectedMenu = ref<IMenu>("main");
 const el = ref();
 const dropDown = ref();
 const dropdownClasses = ref<string[]>([
@@ -25,6 +35,10 @@ const dropdownClasses = ref<string[]>([
   "border-t-0",
   "focus:outline-none",
 ]);
+
+const menu = computed((): Component => {
+  return menuComponentNames[selectedMenu.value];
+});
 
 const toggle = () => {
   isOpen.value ? close() : open();
@@ -43,7 +57,7 @@ const close = () => {
 
 onClickOutside(el, close);
 
-const showSelectedMenu = (selectMenu: string) => {
+const showSelectedMenu = (selectMenu: IMenu) => {
   selectedMenu.value = selectMenu;
   dropDown.value.focus();
 };
@@ -77,26 +91,7 @@ whenever(isOpen, () => {
         v-show="isOpen"
         :class="dropdownClasses"
       >
-        <TheDropDownSettingsMain
-          v-if="selectedMenu === 'main'"
-          @select-menu="showSelectedMenu"
-        />
-        <DropdownSettingsAppearance
-          v-else-if="selectedMenu === 'appearance'"
-          @select-menu="showSelectedMenu"
-        />
-        <DropdownSettingsLanguage
-          v-else-if="selectedMenu === 'language'"
-          @select-menu="showSelectedMenu"
-        />
-        <DropdownSettingsLocation
-          v-else-if="selectedMenu === 'location'"
-          @select-menu="showSelectedMenu"
-        />
-        <DropdownSettingsRestrictedMode
-          v-else-if="selectedMenu === 'restricted_mode'"
-          @select-menu="showSelectedMenu"
-        />
+        <component :is="menu" @select-menu="showSelectedMenu" />
       </div>
     </Transition>
   </div>
