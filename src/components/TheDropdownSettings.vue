@@ -7,6 +7,7 @@ import TheDropDownSettingsMain from "./TheDropDownSettingsMain.vue";
 import DropdownSettingsAppearance from "./UI/DropdownSettingsAppearance.vue";
 import DropdownSettingsLanguage from "./UI/DropdownSettingsLanguage.vue";
 import DropdownSettingsLocation from "./UI/DropdownSettingsLocation.vue";
+import DropdownSettingsRestrictedMode from "./UI/DropdownSettingsRestrictedMode.vue";
 
 const isOpen = ref<boolean>(false);
 const selectedMenu = ref<string>("main");
@@ -40,7 +41,7 @@ const close = () => {
   }, 100);
 };
 
-onClickOutside(el, toggle);
+onClickOutside(el, close);
 
 const showSelectedMenu = (selectMenu: string) => {
   selectedMenu.value = selectMenu;
@@ -90,6 +91,10 @@ whenever(isOpen, () => {
         />
         <DropdownSettingsLocation
           v-else-if="selectedMenu === 'location'"
+          @select-menu="showSelectedMenu"
+        />
+        <DropdownSettingsRestrictedMode
+          v-else-if="selectedMenu === 'restricted_mode'"
           @select-menu="showSelectedMenu"
         />
       </div>

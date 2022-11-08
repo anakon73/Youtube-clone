@@ -15,7 +15,7 @@ const emits = defineEmits(["select-menu"]);
     title="Choose your language"
   />
   <section class="border-b py-2">
-    <ul>
+    <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
         v-for="(language, languageId) in languages"
         icon="check"

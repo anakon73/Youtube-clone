@@ -12,10 +12,10 @@ const emits = defineEmits(["select-menu"]);
 <template>
   <DropdownSettingsHeader
     @back="$emit('select-menu', 'main')"
-    title="Choose your location"
+    title="Choose your locationz"
   />
   <section class="border-b py-2">
-    <ul>
+    <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
         v-for="(location, locationId) in locations"
         icon="check"

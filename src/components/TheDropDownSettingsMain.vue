@@ -6,7 +6,7 @@ import DropdownSettingsListItem from "./UI/DropdownSettingsListItem.vue";
 interface item {
   id: string;
   label: string;
-  icon?: iconType;
+  icon?: iconType | null;
   withSubMenu: boolean;
 }
 
@@ -62,6 +62,7 @@ const listItems = ref<item[]>([
   {
     id: "restricted_mode",
     label: "Restricted Mode: Off",
+    icon: null,
     withSubMenu: true,
   },
 ]);
@@ -82,7 +83,12 @@ const listItems = ref<item[]>([
   </section>
   <section class="py-2">
     <ul>
-      <DropdownSettingsListItem label="Restricted Mode: Off" withSubMenu />
+      <DropdownSettingsListItem
+        label="Restricted Mode: Off"
+        :icon="listItems[8].icon"
+        withSubMenu
+        @click.stop="$emit('select-menu', listItems[8].id)"
+      />
     </ul>
   </section>
 </template>
