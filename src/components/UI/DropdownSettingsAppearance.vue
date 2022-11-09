@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
 import DropdownSettingsHeader from "./DropdownSettingsHeader.vue";
 import DropdownSettingsListItem from "./DropdownSettingsListItem.vue";
 
-const selectedThemeId = ref<number>(0);
+interface Props {
+  selectedOptions: any;
+}
+
+const props = defineProps<Props>();
+
+const { selectedOptions } = toRefs(props);
+
 const themes = ref<string[]>(["Use device Theme", "Dark theme", "White theme"]);
 
-const emits = defineEmits(["select-menu"]);
+const selectedOption = (themeId: number) => {
+  emits("select-option", { name: "themeId", value: themeId });
+};
+
+const emits = defineEmits(["select-menu", "select-option"]);
 </script>
 
 <template>
@@ -24,8 +35,8 @@ const emits = defineEmits(["select-menu"]);
         icon="check"
         :key="themeId"
         :label="theme"
-        :active="themeId === selectedThemeId"
-        @click="selectedThemeId = themeId"
+        :active="themeId === selectedOptions.themeId"
+        @click="selectedOption(themeId)"
       />
     </ul>
   </section>

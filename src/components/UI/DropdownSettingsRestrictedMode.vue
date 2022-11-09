@@ -1,8 +1,23 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { toRefs } from "vue";
 import DropdownSettingsHeader from "./DropdownSettingsHeader.vue";
 
-const emits = defineEmits(["select-menu"]);
+interface Props {
+  selectedOptions: any;
+}
+
+const props = defineProps<Props>();
+
+const { selectedOptions } = toRefs(props);
+
+const selectedOption = (event: Event) => {
+  if (event?.target instanceof HTMLInputElement) {
+    const isChecked = event.target.checked;
+    emits("select-option", { name: "restrictedMode", value: isChecked });
+  }
+};
+
+const emits = defineEmits(["select-menu", "select-option"]);
 </script>
 
 <template>
@@ -17,7 +32,11 @@ const emits = defineEmits(["select-menu"]);
     <p>This setting only applies to this browser.</p>
     <div class="text-gray-600 font-semibold flex items-center">
       <span class="uppercase mr-2">Activate restricted mode</span>
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        :checked="selectedOptions.restrictedMode"
+        @input="selectedOption"
+      />
     </div>
   </section>
 </template>

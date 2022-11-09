@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
 import DropdownSettingsHeader from "./DropdownSettingsHeader.vue";
 import DropdownSettingsListItem from "./DropdownSettingsListItem.vue";
 
-const selectedLanguageId = ref<number>(0);
+interface Props {
+  selectedOptions: any;
+}
+
+const props = defineProps<Props>();
+
+const { selectedOptions } = toRefs(props);
+
 const languages = ref<string[]>(["English", "Russian", "Ukrainian"]);
 
-const emits = defineEmits(["select-menu"]);
+const selectedOption = (languageId: number) => {
+  emits("select-option", { name: "languageId", value: languageId });
+};
+
+const emits = defineEmits(["select-menu", "select-option"]);
 </script>
 
 <template>
@@ -21,8 +32,8 @@ const emits = defineEmits(["select-menu"]);
         icon="check"
         :key="languageId"
         :label="language"
-        :active="languageId === selectedLanguageId"
-        @click="selectedLanguageId = languageId"
+        :active="languageId === selectedOptions.languageId"
+        @click="selectedOption(languageId)"
       />
     </ul>
   </section>

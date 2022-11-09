@@ -1,18 +1,29 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
 import DropdownSettingsHeader from "./DropdownSettingsHeader.vue";
 import DropdownSettingsListItem from "./DropdownSettingsListItem.vue";
 
-const selectedLocationId = ref<number>(0);
+interface Props {
+  selectedOptions: any;
+}
+
+const props = defineProps<Props>();
+
+const { selectedOptions } = toRefs(props);
+
 const locations = ref<string[]>(["United States", "Russia", "Ukraine"]);
 
-const emits = defineEmits(["select-menu"]);
+const selectedOption = (locationId: number) => {
+  emits("select-option", { name: "locationId", value: locationId });
+};
+
+const emits = defineEmits(["select-menu", "select-option"]);
 </script>
 
 <template>
   <DropdownSettingsHeader
     @back="$emit('select-menu', 'main')"
-    title="Choose your locationz"
+    title="Choose your location"
   />
   <section class="border-b py-2">
     <ul class="max-h-96 overflow-auto">
@@ -21,8 +32,8 @@ const emits = defineEmits(["select-menu"]);
         icon="check"
         :key="locationId"
         :label="location"
-        :active="locationId === selectedLocationId"
-        @click="selectedLocationId = locationId"
+        :active="locationId === selectedOptions.locationId"
+        @click="selectedOption(locationId)"
       />
     </ul>
   </section>

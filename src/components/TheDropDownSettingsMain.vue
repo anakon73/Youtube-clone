@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
 import { iconType } from "../icons";
 import DropdownSettingsListItem from "./UI/DropdownSettingsListItem.vue";
+
+interface Props {
+  selectedOptions: any;
+}
+
+const props = defineProps<Props>();
+
+const { selectedOptions } = toRefs(props);
 
 interface item {
   id: string;
@@ -67,11 +75,11 @@ const listItems = ref<item[]>([
   },
 ]);
 
-const emit = defineEmits(["select-menu"]);
+const emits = defineEmits(["select-menu", "select-option"]);
 
 const onMenuClick = (withSubMenu: boolean, id: string) => {
   if (withSubMenu) {
-    emit("select-menu", id);
+    emits("select-menu", id);
   }
 };
 </script>

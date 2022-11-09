@@ -36,6 +36,13 @@ const dropdownClasses = ref<string[]>([
   "focus:outline-none",
 ]);
 
+const selectedOptions = ref({
+  themeId: 0,
+  languageId: 0,
+  locationId: 0,
+  restrictedMode: false,
+});
+
 const menu = computed((): Component => {
   return menuComponentNames[selectedMenu.value];
 });
@@ -60,6 +67,14 @@ onClickOutside(el, close);
 const showSelectedMenu = (selectMenu: IMenu) => {
   selectedMenu.value = selectMenu;
   dropDown.value.focus();
+};
+
+const selectedOption = (option: {
+  name: keyof typeof selectedOptions.value;
+  value: number | boolean;
+}): void => {
+  selectedOptions.value[option.name] =
+    option.value as typeof selectedOption[keyof typeof selectedOption];
 };
 
 whenever(isOpen, () => {
@@ -91,7 +106,12 @@ whenever(isOpen, () => {
         v-show="isOpen"
         :class="dropdownClasses"
       >
-        <component :is="menu" @select-menu="showSelectedMenu" />
+        <component
+          :is="menu"
+          :selectedOptions="selectedOptions"
+          @select-option="selectedOption"
+          @select-menu="showSelectedMenu"
+        />
       </div>
     </Transition>
   </div>
