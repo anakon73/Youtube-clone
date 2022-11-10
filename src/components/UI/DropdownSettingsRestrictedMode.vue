@@ -12,8 +12,9 @@ const { selectedOptions } = toRefs(props);
 
 const selectedOption = (event: Event) => {
   if (event?.target instanceof HTMLInputElement) {
-    const isChecked = event.target.checked;
-    emits("select-option", { name: "restrictedMode", value: isChecked });
+    const enabled = event.target.checked;
+    const value = { enabled, text: enabled ? "On" : "Off" };
+    emits("select-option", { name: "restrictedMode", value });
   }
 };
 
@@ -34,7 +35,7 @@ const emits = defineEmits(["select-menu", "select-option"]);
       <span class="uppercase mr-2">Activate restricted mode</span>
       <input
         type="checkbox"
-        :checked="selectedOptions.restrictedMode"
+        :checked="selectedOptions.restrictedMode.enabled"
         @input="selectedOption"
       />
     </div>

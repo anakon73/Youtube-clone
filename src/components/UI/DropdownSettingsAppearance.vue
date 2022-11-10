@@ -11,10 +11,10 @@ const props = defineProps<Props>();
 
 const { selectedOptions } = toRefs(props);
 
-const themes = ref<string[]>(["Use device Theme", "Dark theme", "White theme"]);
+const themes = ref<string[]>(["Device theme", "Dark theme", "Light theme"]);
 
-const selectedOption = (themeId: number) => {
-  emits("select-option", { name: "themeId", value: themeId });
+const selectedOption = (theme: { id: number; text: string }) => {
+  emits("select-option", { name: "theme", value: theme });
 };
 
 const emits = defineEmits(["select-menu", "select-option"]);
@@ -31,12 +31,12 @@ const emits = defineEmits(["select-menu", "select-option"]);
     </div>
     <ul>
       <DropdownSettingsListItem
-        v-for="(theme, themeId) in themes"
+        v-for="(themeName, themeId) in themes"
         icon="check"
         :key="themeId"
-        :label="theme"
-        :active="themeId === selectedOptions.themeId"
-        @click="selectedOption(themeId)"
+        :label="themeName"
+        :active="themeId === selectedOptions.theme.id"
+        @click="selectedOption({ id: themeId, text: themeName })"
       />
     </ul>
   </section>

@@ -21,19 +21,19 @@ interface item {
 const listItems = ref<item[]>([
   {
     id: "appearance",
-    label: "Appearance: Light",
+    label: `Appearance: ${selectedOptions.value.theme.text}`,
     icon: "sun",
     withSubMenu: true,
   },
   {
     id: "language",
-    label: "Language: English",
+    label: `Language: ${selectedOptions.value.language.text}`,
     icon: "translate",
     withSubMenu: true,
   },
   {
     id: "location",
-    label: "Location: Ukraine",
+    label: `Location: ${selectedOptions.value.location.text}`,
     icon: "globeAlt",
     withSubMenu: true,
   },
@@ -69,7 +69,7 @@ const listItems = ref<item[]>([
   },
   {
     id: "restricted_mode",
-    label: "Restricted Mode: Off",
+    label: `Restricted Mode: ${selectedOptions.value.restrictedMode.text}`,
     icon: null,
     withSubMenu: true,
   },
@@ -100,7 +100,7 @@ const onMenuClick = (withSubMenu: boolean, id: string) => {
   <section class="py-2">
     <ul>
       <DropdownSettingsListItem
-        label="Restricted Mode: Off"
+        :label="listItems[8].label"
         :icon="listItems[8].icon"
         withSubMenu
         @click.stop="onMenuClick(listItems[8].withSubMenu, listItems[8].id)"

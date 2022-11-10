@@ -13,8 +13,8 @@ const { selectedOptions } = toRefs(props);
 
 const languages = ref<string[]>(["English", "Russian", "Ukrainian"]);
 
-const selectedOption = (languageId: number) => {
-  emits("select-option", { name: "languageId", value: languageId });
+const selectedOption = (language: { id: number; text: string }) => {
+  emits("select-option", { name: "language", value: language });
 };
 
 const emits = defineEmits(["select-menu", "select-option"]);
@@ -28,12 +28,12 @@ const emits = defineEmits(["select-menu", "select-option"]);
   <section class="border-b py-2">
     <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
-        v-for="(language, languageId) in languages"
+        v-for="(languageName, languageId) in languages"
         icon="check"
         :key="languageId"
-        :label="language"
-        :active="languageId === selectedOptions.languageId"
-        @click="selectedOption(languageId)"
+        :label="languageName"
+        :active="languageId === selectedOptions.language.id"
+        @click="selectedOption({ id: languageId, text: languageName })"
       />
     </ul>
   </section>

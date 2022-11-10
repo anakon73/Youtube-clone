@@ -37,10 +37,22 @@ const dropdownClasses = ref<string[]>([
 ]);
 
 const selectedOptions = ref({
-  themeId: 0,
-  languageId: 0,
-  locationId: 0,
-  restrictedMode: false,
+  theme: {
+    id: 0,
+    text: "Device theme",
+  },
+  language: {
+    id: 0,
+    text: "English",
+  },
+  location: {
+    id: 0,
+    text: "United States",
+  },
+  restrictedMode: {
+    enabled: false,
+    text: "Off",
+  },
 });
 
 const menu = computed((): Component => {
