@@ -31,7 +31,7 @@ const emits = defineEmits(["select-menu", "select-option"]);
       This helps hide potentially mature videos. No filter is 100% accurate.
     </p>
     <p>This setting only applies to this browser.</p>
-    <div class="text-gray-600 font-semibold flex items-center">
+    <div class="font-semibold flex items-center">
       <span class="uppercase mr-2">Activate restricted mode</span>
       <input
         type="checkbox"

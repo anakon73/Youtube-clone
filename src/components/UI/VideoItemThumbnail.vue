@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
-import BaseIcon from "./BaseIcon.vue";
 import VideoItemThumbnailButton from "./VideoItemThumbnailButton.vue";
 
 interface Props {

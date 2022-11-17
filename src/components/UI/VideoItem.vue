@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
 import VideoItemInfo from "./VideoItemInfo.vue";
 import VideoItemThumbnail from "./VideoItemThumbnail.vue";
 

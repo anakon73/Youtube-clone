@@ -14,10 +14,9 @@ interface Props {
 const props = defineProps<Props>();
 const { isOpen } = toRefs(props);
 
-const emit =
-  defineEmits<{
-    (e: "close", type: boolean): void;
-  }>();
+const emit = defineEmits<{
+  (e: "close", type: boolean): void;
+}>();
 
 watch(isOpen, () => {
   nextTick(() => isOpen.value && mobileSidebar.value.focus());

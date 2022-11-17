@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, computed, toRefs } from "vue";
+import { computed, toRefs } from "vue";
 
 interface Props {
   category: string;

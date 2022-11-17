@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, toRefs } from "vue";
+import { toRefs } from "vue";
 import BaseIcon from "./BaseIcon.vue";
 
 interface Props {

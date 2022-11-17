@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import TheDropdownApps from "./TheDropdownApps.vue";
 import TheDropdownSettings from "./TheDropdownSettings.vue";
 import LogoMain from "./UI/LogoMain.vue";

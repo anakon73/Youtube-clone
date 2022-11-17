@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { toRefs, defineProps } from "vue";
+import { toRefs } from "vue";
 
 interface Props {
   title: string;

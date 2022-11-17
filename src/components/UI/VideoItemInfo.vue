@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { defineProps } from "vue";
 import BaseTooltip from "./BaseTooltip.vue";
 import BaseIcon from "./BaseIcon.vue";
 import VideoItemInfoDropdown from "./VideoItemInfoDropdown.vue";
