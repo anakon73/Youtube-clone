@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { onClickOutside, whenever } from "@vueuse/core";
-import { ref, nextTick, computed, type Component } from "vue";
-import BaseIcon from "./UI/BaseIcon.vue";
-import BaseTooltip from "./UI/BaseTooltip.vue";
-import TheDropDownSettingsMain from "./TheDropDownSettingsMain.vue";
-import DropdownSettingsAppearance from "./UI/DropdownSettingsAppearance.vue";
-import DropdownSettingsLanguage from "./UI/DropdownSettingsLanguage.vue";
-import DropdownSettingsLocation from "./UI/DropdownSettingsLocation.vue";
-import DropdownSettingsRestrictedMode from "./UI/DropdownSettingsRestrictedMode.vue";
+import { onClickOutside, whenever } from '@vueuse/core'
+import { ref, nextTick, computed, type Component } from 'vue'
+import BaseIcon from './UI/BaseIcon.vue'
+import BaseTooltip from './UI/BaseTooltip.vue'
+import TheDropDownSettingsMain from './TheDropDownSettingsMain.vue'
+import DropdownSettingsAppearance from './UI/DropdownSettingsAppearance.vue'
+import DropdownSettingsLanguage from './UI/DropdownSettingsLanguage.vue'
+import DropdownSettingsLocation from './UI/DropdownSettingsLocation.vue'
+import DropdownSettingsRestrictedMode from './UI/DropdownSettingsRestrictedMode.vue'
 
 const menuComponentNames = {
   main: TheDropDownSettingsMain,
@@ -15,85 +15,85 @@ const menuComponentNames = {
   language: DropdownSettingsLanguage,
   location: DropdownSettingsLocation,
   restricted_mode: DropdownSettingsRestrictedMode,
-};
+}
 
-type IMenu = keyof typeof menuComponentNames;
+type IMenu = keyof typeof menuComponentNames
 
-const isOpen = ref<boolean>(false);
-const selectedMenu = ref<IMenu>("main");
-const el = ref();
-const dropDown = ref();
+const isOpen = ref<boolean>(false)
+const selectedMenu = ref<IMenu>('main')
+const el = ref()
+const dropDown = ref()
 const dropdownClasses = ref<string[]>([
-  "z-10",
-  "absolute",
-  "top-9",
-  "-right-full",
-  "sm:right-0",
-  "bg-white",
-  "w-72",
-  "border",
-  "border-t-0",
-  "focus:outline-none",
-]);
+  'z-10',
+  'absolute',
+  'top-9',
+  '-right-full',
+  'sm:right-0',
+  'bg-white',
+  'w-72',
+  'border',
+  'border-t-0',
+  'focus:outline-none',
+])
 
 const selectedOptions = ref({
   theme: {
     id: 0,
-    text: "Device theme",
+    text: 'Device theme',
   },
   language: {
     id: 0,
-    text: "English",
+    text: 'English',
   },
   location: {
     id: 0,
-    text: "United States",
+    text: 'United States',
   },
   restrictedMode: {
     enabled: false,
-    text: "Off",
+    text: 'Off',
   },
-});
+})
 
 const menu = computed((): Component => {
-  return menuComponentNames[selectedMenu.value];
-});
+  return menuComponentNames[selectedMenu.value]
+})
 
 const toggle = () => {
-  isOpen.value ? close() : open();
-};
+  isOpen.value ? close() : open()
+}
 
 const open = () => {
-  isOpen.value = true;
-};
+  isOpen.value = true
+}
 
 const close = () => {
-  isOpen.value = false;
+  isOpen.value = false
   setTimeout(() => {
-    selectedMenu.value = "main";
-  }, 100);
-};
+    selectedMenu.value = 'main'
+  }, 100)
+}
 
-onClickOutside(el, close);
+onClickOutside(el, close)
 
 const showSelectedMenu = (selectMenu: IMenu) => {
-  selectedMenu.value = selectMenu;
-  dropDown.value.focus();
-};
+  selectedMenu.value = selectMenu
+  dropDown.value.focus()
+}
 
 const selectedOption = (option: {
-  name: keyof typeof selectedOptions.value;
-  value: number | boolean;
+  name: keyof typeof selectedOptions.value
+  value: number | boolean
 }): void => {
   selectedOptions.value[option.name] =
-    option.value as typeof selectedOption[keyof typeof selectedOption];
-};
+    option.value as typeof selectedOption[keyof typeof selectedOption]
+}
 
 whenever(isOpen, () => {
   nextTick(() => {
-    dropDown.value.focus();
-  });
-});
+    dropDown.value.focus()
+  })
+})
 </script>
 
 <template>

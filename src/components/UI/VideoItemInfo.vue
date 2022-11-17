@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import BaseTooltip from "./BaseTooltip.vue";
-import BaseIcon from "./BaseIcon.vue";
-import VideoItemInfoDropdown from "./VideoItemInfoDropdown.vue";
+import { computed, ref } from 'vue'
+import BaseTooltip from './BaseTooltip.vue'
+import BaseIcon from './BaseIcon.vue'
+import VideoItemInfoDropdown from './VideoItemInfoDropdown.vue'
 interface Props {
-  index: number;
+  index: number
 }
 
-const props = defineProps<Props>();
-const { index } = props;
-const channelName = ref(`Channel name ${index}`);
+const props = defineProps<Props>()
+const { index } = props
+const channelName = ref(`Channel name ${index}`)
 const summary = computed(() => {
-  const days = index === 1 ? "day" : "days";
-  return `${index}K views &middot; ${index} ${days} ago`;
-});
+  const days = index === 1 ? 'day' : 'days'
+  return `${index}K views &middot; ${index} ${days} ago`
+})
 </script>
 
 <template>

@@ -1,41 +1,41 @@
 <script lang="ts" setup>
-import { computed, ref, toRefs } from "vue";
-import CategoryItem from "./UI/CategoryItem.vue";
+import { computed, ref, toRefs } from 'vue'
+import CategoryItem from './UI/CategoryItem.vue'
 
 const categories = ref<string[]>([
-  "All",
-  "Trucks",
-  "Tools",
-  "Machines",
-  "Engines",
-  "Show",
-  "Ships",
-  "Roads",
-  "Tanks",
-  "Building",
-  "Mars",
-  "Woodworking",
-  "Tractors",
-  "Songs",
-  "TV Shows",
-  "Football",
-  "Planes",
-  "Live",
-  "Streets",
-  "Math",
-  "Programming",
-]);
+  'All',
+  'Trucks',
+  'Tools',
+  'Machines',
+  'Engines',
+  'Show',
+  'Ships',
+  'Roads',
+  'Tanks',
+  'Building',
+  'Mars',
+  'Woodworking',
+  'Tractors',
+  'Songs',
+  'TV Shows',
+  'Football',
+  'Planes',
+  'Live',
+  'Streets',
+  'Math',
+  'Programming',
+])
 
 interface Props {
-  isSidebarOpen: boolean;
+  isSidebarOpen: boolean
 }
 
-const props = defineProps<Props>();
-const { isSidebarOpen } = toRefs(props);
+const props = defineProps<Props>()
+const { isSidebarOpen } = toRefs(props)
 
 const classes = computed(() => {
-  return isSidebarOpen.value ? "xl:pl-64" : "md:pl-24";
-});
+  return isSidebarOpen.value ? 'xl:pl-64' : 'md:pl-24'
+})
 </script>
 
 <template>

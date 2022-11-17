@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { ref, toRefs } from "vue";
-import DropdownSettingsHeader from "./DropdownSettingsHeader.vue";
-import DropdownSettingsListItem from "./DropdownSettingsListItem.vue";
+import { ref, toRefs } from 'vue'
+import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
+import DropdownSettingsListItem from './DropdownSettingsListItem.vue'
 
 interface Props {
-  selectedOptions: any;
+  selectedOptions: any
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const { selectedOptions } = toRefs(props);
+const { selectedOptions } = toRefs(props)
 
-const locations = ref<string[]>(["United States", "Russia", "Ukraine"]);
+const locations = ref<string[]>(['United States', 'Russia', 'Ukraine'])
 
 const selectedOption = (location: { id: number; text: string }) => {
-  emits("select-option", { name: "location", value: location });
-};
+  emits('select-option', { name: 'location', value: location })
+}
 
-const emits = defineEmits(["select-menu", "select-option"]);
+const emits = defineEmits(['select-menu', 'select-option'])
 </script>
 
 <template>

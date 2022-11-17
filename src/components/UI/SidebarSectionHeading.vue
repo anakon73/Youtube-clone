@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { toRefs } from "vue";
+import { toRefs } from 'vue'
 
 interface Props {
-  title: string;
+  title: string
 }
 
-const props = defineProps<Props>();
-const { title } = toRefs(props);
+const props = defineProps<Props>()
+const { title } = toRefs(props)
 </script>
 
 <template>

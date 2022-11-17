@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import BaseIcon from "./UI/BaseIcon.vue";
-import BaseTooltip from "./UI/BaseTooltip.vue";
-import TheSearch from "./TheSearch.vue";
-import { ref } from "vue";
-import { onClickOutside } from "@vueuse/core";
+import BaseIcon from './UI/BaseIcon.vue'
+import BaseTooltip from './UI/BaseTooltip.vue'
+import TheSearch from './TheSearch.vue'
+import { ref } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 
-const el = ref();
+const el = ref()
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(['close'])
 
 onClickOutside(el, () => {
-  emit("close");
-});
+  emit('close')
+})
 </script>
 
 <template>

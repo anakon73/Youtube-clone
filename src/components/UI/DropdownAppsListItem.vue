@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { toRefs } from "vue";
-import BaseIcon from "./BaseIcon.vue";
+import { toRefs } from 'vue'
+import BaseIcon from './BaseIcon.vue'
 
 interface Props {
-  label: string;
+  label: string
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const { label } = toRefs(props);
+const { label } = toRefs(props)
 </script>
 
 <template>

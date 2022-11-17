@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { onClickOutside } from "@vueuse/core";
-import { ref, watch, nextTick } from "vue";
-import BaseIcon from "./UI/BaseIcon.vue";
-import BaseTooltip from "./UI/BaseTooltip.vue";
-import DropdownAppsListItem from "./UI/DropdownAppsListItem.vue";
+import { onClickOutside } from '@vueuse/core'
+import { ref, watch, nextTick } from 'vue'
+import BaseIcon from './UI/BaseIcon.vue'
+import BaseTooltip from './UI/BaseTooltip.vue'
+import DropdownAppsListItem from './UI/DropdownAppsListItem.vue'
 
-const isOpen = ref<boolean>(false);
-const dropDown = ref();
-const el = ref();
+const isOpen = ref<boolean>(false)
+const dropDown = ref()
+const el = ref()
 const dropdownClasses = ref<string[]>([
-  "z-10",
-  "absolute",
-  "top-9",
-  "right-0",
-  "sm:left-0",
-  "bg-white",
-  "w-60",
-  "border",
-  "border-t-0",
-  "focus:outline-none",
-]);
+  'z-10',
+  'absolute',
+  'top-9',
+  'right-0',
+  'sm:left-0',
+  'bg-white',
+  'w-60',
+  'border',
+  'border-t-0',
+  'focus:outline-none',
+])
 
 onClickOutside(el, () => {
-  isOpen.value = false;
-});
+  isOpen.value = false
+})
 watch(isOpen, () => {
-  nextTick(() => isOpen.value && dropDown.value.focus());
-});
+  nextTick(() => isOpen.value && dropDown.value.focus())
+})
 </script>
 
 <template>

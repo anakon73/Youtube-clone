@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import TheDropdownApps from "./TheDropdownApps.vue";
-import TheDropdownSettings from "./TheDropdownSettings.vue";
-import LogoMain from "./UI/LogoMain.vue";
-import TheSearch from "./TheSearch.vue";
-import ButtonLogin from "./UI/ButtonLogin.vue";
-import BaseIcon from "./UI/BaseIcon.vue";
-import BaseTooltip from "./UI/BaseTooltip.vue";
-import TheSearchMobile from "./TheSearchMobile.vue";
-import { computed } from "@vue/reactivity";
+import { onMounted, ref } from 'vue'
+import TheDropdownApps from './TheDropdownApps.vue'
+import TheDropdownSettings from './TheDropdownSettings.vue'
+import LogoMain from './UI/LogoMain.vue'
+import TheSearch from './TheSearch.vue'
+import ButtonLogin from './UI/ButtonLogin.vue'
+import BaseIcon from './UI/BaseIcon.vue'
+import BaseTooltip from './UI/BaseTooltip.vue'
+import TheSearchMobile from './TheSearchMobile.vue'
+import { computed } from '@vue/reactivity'
 
-const isSmallScreen = ref<boolean>(false);
-const isMobileSearchActive = ref<boolean>(false);
+const isSmallScreen = ref<boolean>(false)
+const isMobileSearchActive = ref<boolean>(false)
 const classes = <string[]>[
-  "flex",
-  "justify-between",
-  "w-full",
-  "bg-white",
-  "bg-opacity-95",
-];
+  'flex',
+  'justify-between',
+  'w-full',
+  'bg-white',
+  'bg-opacity-95',
+]
 
 const onResize = () => {
   if (window.innerWidth < 640) {
-    isSmallScreen.value = true;
+    isSmallScreen.value = true
   } else {
-    isMobileSearchActive.value = false;
-    isSmallScreen.value = false;
+    isMobileSearchActive.value = false
+    isSmallScreen.value = false
   }
-};
+}
 
 onMounted(() => {
-  onResize();
-  window.addEventListener("resize", onResize);
-});
+  onResize()
+  window.addEventListener('resize', onResize)
+})
 
 const isMobileSearchShown = computed(() => {
-  return isSmallScreen.value && isMobileSearchActive.value;
-});
+  return isSmallScreen.value && isMobileSearchActive.value
+})
 
 const emit = defineEmits<{
-  (e: "toggleSidebar", type: null): void;
-}>();
+  (e: 'toggleSidebar', type: null): void
+}>()
 </script>
 
 <template>

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed, toRefs } from "vue";
-import icons, { iconType } from "../../icons";
+import { computed, toRefs } from 'vue'
+import icons, { iconType } from '../../icons'
 
 interface Props {
-  name: iconType;
+  name: iconType
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const { name } = toRefs(props);
+const { name } = toRefs(props)
 
 const path = computed(() => {
-  return icons[name.value];
-});
+  return icons[name.value]
+})
 </script>
 
 <template>

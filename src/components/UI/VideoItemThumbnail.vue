@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import VideoItemThumbnailButton from "./VideoItemThumbnailButton.vue";
+import VideoItemThumbnailButton from './VideoItemThumbnailButton.vue'
 
 interface Props {
-  index: number;
+  index: number
 }
 
-const props = defineProps<Props>();
-const { index } = props;
+const props = defineProps<Props>()
+const { index } = props
 </script>
 
 <template>

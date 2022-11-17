@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { toRefs } from "vue";
-import BaseIcon from "./BaseIcon.vue";
+import { toRefs } from 'vue'
+import BaseIcon from './BaseIcon.vue'
 
 interface Props {
-  title: string;
+  title: string
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const { title } = toRefs(props);
+const { title } = toRefs(props)
 
-const emits = defineEmits(["back"]);
+const emits = defineEmits(['back'])
 </script>
 
 <template>

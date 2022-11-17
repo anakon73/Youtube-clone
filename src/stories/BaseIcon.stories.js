@@ -1,23 +1,23 @@
-import BaseIcon from "../components/UI/BaseIcon.vue";
-import "../style.css";
+import BaseIcon from '../components/UI/BaseIcon.vue'
+import '../style.css'
 
 export default {
-  title: "BaseIcon",
+  title: 'BaseIcon',
   component: BaseIcon,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-};
+}
 
 const Template = (args) => ({
   components: { BaseIcon },
   setup() {
-    return { args };
+    return { args }
   },
   template: '<BaseIcon disabled v-bind="args" />',
-});
+})
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})
 Primary.args = {
-  name: "",
-};
+  name: '',
+}

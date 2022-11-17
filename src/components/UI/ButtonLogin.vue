@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import BaseIcon from "./BaseIcon.vue";
+import BaseIcon from './BaseIcon.vue'
 </script>
 
 <template>

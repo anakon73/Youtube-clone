@@ -1,26 +1,26 @@
 <script lang="ts" setup>
-import { toRefs, watch, ref, nextTick } from "vue";
-import SidebarContent from "./SidebarContent.vue";
-import LogoMain from "./UI/LogoMain.vue";
-import BaseIcon from "./UI/BaseIcon.vue";
-import TheSidebarMobileOverlay from "./TheSidebarMobileOverlay.vue";
+import { toRefs, watch, ref, nextTick } from 'vue'
+import SidebarContent from './SidebarContent.vue'
+import LogoMain from './UI/LogoMain.vue'
+import BaseIcon from './UI/BaseIcon.vue'
+import TheSidebarMobileOverlay from './TheSidebarMobileOverlay.vue'
 
-const mobileSidebar = ref();
+const mobileSidebar = ref()
 
 interface Props {
-  isOpen: boolean;
+  isOpen: boolean
 }
 
-const props = defineProps<Props>();
-const { isOpen } = toRefs(props);
+const props = defineProps<Props>()
+const { isOpen } = toRefs(props)
 
 const emit = defineEmits<{
-  (e: "close", type: boolean): void;
-}>();
+  (e: 'close', type: boolean): void
+}>()
 
 watch(isOpen, () => {
-  nextTick(() => isOpen.value && mobileSidebar.value.focus());
-});
+  nextTick(() => isOpen.value && mobileSidebar.value.focus())
+})
 </script>
 
 <template>

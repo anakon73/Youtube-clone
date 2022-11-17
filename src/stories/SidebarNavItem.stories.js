@@ -1,26 +1,26 @@
-import SidebarNavItem from "../components/UI/SidebarNavItem.vue";
-import "../style.css";
-import "./index.css";
+import SidebarNavItem from '../components/UI/SidebarNavItem.vue'
+import '../style.css'
+import './index.css'
 
 export default {
-  title: "SidebarNavItem",
+  title: 'SidebarNavItem',
   component: SidebarNavItem,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-};
+}
 
 const Template = (args) => ({
   components: { SidebarNavItem },
   setup() {
-    return { args };
+    return { args }
   },
   template: '<SidebarNavItem v-bind="args" >{{args.label}}</SidebarNavItem>',
-});
+})
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})
 Primary.args = {
-  icon: "",
-  label: "",
+  icon: '',
+  label: '',
   isActive: false,
-};
+}

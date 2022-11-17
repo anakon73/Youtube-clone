@@ -1,21 +1,21 @@
-import Header from "../components/TheHeader.vue";
-import "../style.css";
+import Header from '../components/TheHeader.vue'
+import '../style.css'
 
 export default {
-  title: "Header",
+  title: 'Header',
   component: Header,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-};
+}
 
 const Template = (args) => ({
   components: { Header },
   setup() {
-    return { args };
+    return { args }
   },
   template: '<Header v-bind="args" />',
-});
+})
 
-export const Primary = Template.bind({});
-Primary.args = {};
+export const Primary = Template.bind({})
+Primary.args = {}

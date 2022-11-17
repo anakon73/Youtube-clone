@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { toRefs } from "vue";
-import DropdownSettingsHeader from "./DropdownSettingsHeader.vue";
+import { toRefs } from 'vue'
+import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
 
 interface Props {
-  selectedOptions: any;
+  selectedOptions: any
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const { selectedOptions } = toRefs(props);
+const { selectedOptions } = toRefs(props)
 
 const selectedOption = (event: Event) => {
   if (event?.target instanceof HTMLInputElement) {
-    const enabled = event.target.checked;
-    const value = { enabled, text: enabled ? "On" : "Off" };
-    emits("select-option", { name: "restrictedMode", value });
+    const enabled = event.target.checked
+    const value = { enabled, text: enabled ? 'On' : 'Off' }
+    emits('select-option', { name: 'restrictedMode', value })
   }
-};
+}
 
-const emits = defineEmits(["select-menu", "select-option"]);
+const emits = defineEmits(['select-menu', 'select-option'])
 </script>
 
 <template>
