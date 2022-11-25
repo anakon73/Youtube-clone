@@ -1,27 +1,27 @@
-import DropdownSettingsListItem from "../components/UI/DropdownSettingsListItem.vue";
-import "../style.css";
-import "./index.css";
+import DropdownSettingsListItem from '../components/UI/DropdownSettingsListItem.vue'
+import '../style.css'
+import './index.css'
 
 export default {
-  title: "DropdownSettingsListItem",
+  title: 'DropdownSettingsListItem',
   component: DropdownSettingsListItem,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-};
+}
 
 const Template = (args) => ({
   components: { DropdownSettingsListItem },
   setup() {
-    return { args };
+    return { args }
   },
   template:
     '<DropdownSettingsListItem v-bind="args" >{{args.label}}</DropdownSettingsListItem>',
-});
+})
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})
 Primary.args = {
-  icon: "",
-  label: "",
+  icon: '',
+  label: '',
   withSubMenu: false,
-};
+}

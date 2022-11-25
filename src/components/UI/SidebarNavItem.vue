@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { defineProps, toRefs, computed } from "vue";
-import { iconType } from "../../icons";
-import BaseIcon from "./BaseIcon.vue";
+import { toRefs, computed } from 'vue'
+import { iconType } from '../../icons'
+import BaseIcon from './BaseIcon.vue'
 interface Props {
-  icon: iconType;
-  label: string;
-  isActive?: boolean;
+  icon: iconType
+  label: string
+  isActive?: boolean
 }
-const props = defineProps<Props>();
-const { icon, label, isActive } = toRefs(props);
+const props = defineProps<Props>()
+const { icon, label, isActive } = toRefs(props)
 const classes = computed(() => {
   const classes = [
-    "flex",
-    "items-center",
-    "px-6",
-    "py-2",
-    "text-sm",
-    "hover:bg-gray-100",
-    "text-gray-700",
-  ];
+    'flex',
+    'items-center',
+    'px-6',
+    'py-2',
+    'text-sm',
+    'hover:bg-gray-100',
+    'text-gray-700',
+  ]
 
   return isActive?.value
     ? [
         ...classes,
-        "font-medium",
-        "text-gray-800",
-        "bg-gray-200",
-        "hover:bg-gray-300",
+        'font-medium',
+        'text-gray-800',
+        'bg-gray-200',
+        'hover:bg-gray-300',
       ]
-    : [...classes, "hover:bg-gray-100"];
-});
+    : [...classes, 'hover:bg-gray-100']
+})
 const iconClasses = computed(() => {
-  return isActive?.value ? "w-6 h-6 mr-6 text-red-500" : "w-6 h-6 mr-6";
-});
+  return isActive?.value ? 'w-6 h-6 mr-6 text-red-500' : 'w-6 h-6 mr-6'
+})
 </script>
 
 <template>

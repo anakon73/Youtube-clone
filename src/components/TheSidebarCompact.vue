@@ -1,33 +1,33 @@
 <script setup lang="ts">
-import SidebarCompactNavItem from "./UI/SidebarCompactNavItem.vue";
-import { computed, ref } from "vue";
-import { iconType } from "../icons";
+import SidebarCompactNavItem from './UI/SidebarCompactNavItem.vue'
+import { computed, ref } from 'vue'
+import { iconType } from '../icons'
 
 type navItem = {
-  label: string;
-  icon: iconType;
-  isActive: boolean;
-};
+  label: string
+  icon: iconType
+  isActive: boolean
+}
 
 const navItems = ref<navItem[]>([
-  { label: "Home", icon: "home", isActive: true },
-  { label: "Trending", icon: "fire", isActive: false },
-  { label: "Subsctiptions", icon: "collection", isActive: false },
-  { label: "Library", icon: "duplicate", isActive: false },
-  { label: "History", icon: "clock", isActive: false },
-]);
+  { label: 'Home', icon: 'home', isActive: true },
+  { label: 'Trending', icon: 'fire', isActive: false },
+  { label: 'Subsctiptions', icon: 'collection', isActive: false },
+  { label: 'Library', icon: 'duplicate', isActive: false },
+  { label: 'History', icon: 'clock', isActive: false },
+])
 
 const classes = computed(() => {
   return [
-    "min-h-screen",
-    "overflow-auto",
-    "fixed",
-    "top-0",
-    "pt-14",
-    "bg-white",
-    "z-20",
-  ];
-});
+    'min-h-screen',
+    'overflow-auto',
+    'fixed',
+    'top-0',
+    'pt-14',
+    'bg-white',
+    'z-20',
+  ]
+})
 </script>
 
 <template>

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 
 const links = ref<string[]>([
-  "About",
-  "Press",
-  "Copyright",
-  "Contact us",
-  "Creators",
-  "Advertise",
-  "Developers",
-  "Terms",
-  "Privacy",
-  "Policy & Safety",
-  "How YouTube works",
-  "Test new features",
-]);
+  'About',
+  'Press',
+  'Copyright',
+  'Contact us',
+  'Creators',
+  'Advertise',
+  'Developers',
+  'Terms',
+  'Privacy',
+  'Policy & Safety',
+  'How YouTube works',
+  'Test new features',
+])
 </script>
 
 <template>

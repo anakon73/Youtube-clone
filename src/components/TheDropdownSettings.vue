@@ -1,51 +1,105 @@
 <script setup lang="ts">
-import { onClickOutside } from "@vueuse/core";
-import { ref, watch, nextTick } from "vue";
-import BaseIcon from "./UI/BaseIcon.vue";
-import BaseTooltip from "./UI/BaseTooltip.vue";
-import DropdownSettingsListItem from "./UI/DropdownSettingsListItem.vue";
+import { onClickOutside, whenever } from '@vueuse/core'
+import { ref, nextTick, computed, type Component } from 'vue'
+import BaseIcon from './UI/BaseIcon.vue'
+import BaseTooltip from './UI/BaseTooltip.vue'
+import TheDropDownSettingsMain from './TheDropDownSettingsMain.vue'
+import DropdownSettingsAppearance from './UI/DropdownSettingsAppearance.vue'
+import DropdownSettingsLanguage from './UI/DropdownSettingsLanguage.vue'
+import DropdownSettingsLocation from './UI/DropdownSettingsLocation.vue'
+import DropdownSettingsRestrictedMode from './UI/DropdownSettingsRestrictedMode.vue'
 
-const isOpen = ref<boolean>(false);
-const el = ref();
-const dropDown = ref();
+const menuComponentNames = {
+  main: TheDropDownSettingsMain,
+  appearance: DropdownSettingsAppearance,
+  language: DropdownSettingsLanguage,
+  location: DropdownSettingsLocation,
+  restricted_mode: DropdownSettingsRestrictedMode,
+}
+
+type IMenu = keyof typeof menuComponentNames
+
+const isOpen = ref<boolean>(false)
+const selectedMenu = ref<IMenu>('main')
+const el = ref()
+const dropDown = ref()
 const dropdownClasses = ref<string[]>([
-  "z-10",
-  "absolute",
-  "top-9",
-  "-right-full",
-  "sm:right-0",
-  "bg-white",
-  "w-72",
-  "border",
-  "border-t-0",
-  "focus:outline-none",
-]);
+  'z-10',
+  'absolute',
+  'top-9',
+  '-right-full',
+  'sm:right-0',
+  'bg-white',
+  'w-72',
+  'border',
+  'border-t-0',
+  'focus:outline-none',
+])
 
-onClickOutside(el, () => {
-  isOpen.value = false;
-});
+const selectedOptions = ref({
+  theme: {
+    id: 0,
+    text: 'Device theme',
+  },
+  language: {
+    id: 0,
+    text: 'English',
+  },
+  location: {
+    id: 0,
+    text: 'United States',
+  },
+  restrictedMode: {
+    enabled: false,
+    text: 'Off',
+  },
+})
 
-watch(isOpen, () => {
-  nextTick(() => isOpen.value && dropDown.value.focus());
-});
+const menu = computed((): Component => {
+  return menuComponentNames[selectedMenu.value]
+})
 
-const listItems = ref([
-  { label: "Appearance: Light", icon: "sun", withSubMenu: true },
-  { label: "Language: English", icon: "translate", withSubMenu: true },
-  { label: "Location: Ukraine", icon: "globeAlt", withSubMenu: true },
-  { label: "Your data in YouTube", icon: "shieldCheck", withSubMenu: false },
-  { label: "Help", icon: "questionMarkCircle", withSubMenu: false },
-  { label: "Send feedback", icon: "chatAlt", withSubMenu: false },
-  { label: "Appearance: Light", icon: "calculator", withSubMenu: false },
-  { label: "Keyboard shortcuts", icon: "sun", withSubMenu: false },
-  { label: "Restricted Mode: Off", withSubMenu: true },
-]);
+const toggle = () => {
+  isOpen.value ? close() : open()
+}
+
+const open = () => {
+  isOpen.value = true
+}
+
+const close = () => {
+  isOpen.value = false
+  setTimeout(() => {
+    selectedMenu.value = 'main'
+  }, 100)
+}
+
+onClickOutside(el, close)
+
+const showSelectedMenu = (selectMenu: IMenu) => {
+  selectedMenu.value = selectMenu
+  dropDown.value.focus()
+}
+
+const selectedOption = (option: {
+  name: keyof typeof selectedOptions.value
+  value: number | boolean
+}): void => {
+  selectedOptions.value[option.name] =
+    option.value as typeof selectedOption[keyof typeof selectedOption]
+}
+
+whenever(isOpen, () => {
+  nextTick(() => {
+    dropDown.value.focus()
+  })
+})
 </script>
 
 <template>
   <div ref="el" class="relative">
     <BaseTooltip text="Settings">
-      <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+      <button @click="toggle" class="relative p-2 focus:outline-none">
         <BaseIcon name="dotsVertical" class="h-5 w-5" />
       </button>
     </BaseTooltip>
@@ -60,29 +114,16 @@ const listItems = ref([
       <div
         ref="dropDown"
         tabindex="-1"
-        @keydown.esc="isOpen = false"
+        @keydown.esc="close"
         v-show="isOpen"
         :class="dropdownClasses"
       >
-        <section class="border-b py-2">
-          <ul>
-            <DropdownSettingsListItem
-              v-for="listItem in listItems.slice(0, 8)"
-              :key="listItem.label"
-              :label="listItem.label"
-              :icon="listItem.icon"
-              :with-sub-menu="listItem.withSubMenu"
-            />
-          </ul>
-        </section>
-        <section class="py-2">
-          <ul>
-            <DropdownSettingsListItem
-              label="Restricted Mode: Off"
-              withSubMenu
-            />
-          </ul>
-        </section>
+        <component
+          :is="menu"
+          :selectedOptions="selectedOptions"
+          @select-option="selectedOption"
+          @select-menu="showSelectedMenu"
+        />
       </div>
     </Transition>
   </div>

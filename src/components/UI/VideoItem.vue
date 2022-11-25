@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
-import VideoItemInfo from "./VideoItemInfo.vue";
-import VideoItemThumbnail from "./VideoItemThumbnail.vue";
+import VideoItemInfo from './VideoItemInfo.vue'
+import VideoItemThumbnail from './VideoItemThumbnail.vue'
 
 interface Props {
-  index: number;
+  index: number
 }
 
-const props = defineProps<Props>();
-const { index } = props;
+const props = defineProps<Props>()
+const { index } = props
 </script>
 
 <template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import ButtonLogin from "./UI/ButtonLogin.vue";
-import SidebarNavItem from "./UI/SidebarNavItem.vue";
-import SidebarSectionHeading from "./UI/SidebarSectionHeading.vue";
-import SidebarSelection from "./UI/SidebarSelection.vue";
-import TheFooter from "./TheFooter.vue";
+import ButtonLogin from './UI/ButtonLogin.vue'
+import SidebarNavItem from './UI/SidebarNavItem.vue'
+import SidebarSectionHeading from './UI/SidebarSectionHeading.vue'
+import SidebarSelection from './UI/SidebarSelection.vue'
+import TheFooter from './TheFooter.vue'
 </script>
 
 <template>

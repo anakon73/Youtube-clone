@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { computed, toRefs } from "vue";
-import { iconType } from "../../icons";
-import BaseIcon from "./BaseIcon.vue";
+import { computed, toRefs } from 'vue'
+import { iconType } from '../../icons'
+import BaseIcon from './BaseIcon.vue'
 
 interface Props {
-  label: string;
-  icon: iconType;
-  isActive: boolean;
+  label: string
+  icon: iconType
+  isActive: boolean
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const { label, icon, isActive } = toRefs(props);
+const { label, icon, isActive } = toRefs(props)
 
 const classes = computed(() => {
   const classes = [
-    "flex",
-    "flex-col",
-    "items-center",
-    "px-2",
-    "py-5",
+    'flex',
+    'flex-col',
+    'items-center',
+    'px-2',
+    'py-5',
 
-    "hover:bg-gray-100",
-  ];
-  return isActive.value ? [...classes, "text-red-500"] : classes;
-});
+    'hover:bg-gray-100',
+  ]
+  return isActive.value ? [...classes, 'text-red-500'] : classes
+})
 </script>
 
 <template>

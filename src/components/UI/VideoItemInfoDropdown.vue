@@ -1,28 +1,28 @@
 <script lang="ts" setup>
-import { onClickOutside, onKeyStroke } from "@vueuse/core";
-import { computed, nextTick, onMounted, ref, watch } from "vue";
-import BaseIcon from "./BaseIcon.vue";
-import VideoItemListItem from "./VideoItemListItem.vue";
+import { onClickOutside, onKeyStroke } from '@vueuse/core'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import BaseIcon from './BaseIcon.vue'
+import VideoItemListItem from './VideoItemListItem.vue'
 
-const el = ref();
-const dropDown = ref();
-const positionClasses = ref<any[]>([]);
-const isOpen = ref<boolean>(false);
+const el = ref()
+const dropDown = ref()
+const positionClasses = ref<any[]>([])
+const isOpen = ref<boolean>(false)
 
 onClickOutside(el, () => {
-  isOpen.value = false;
-});
+  isOpen.value = false
+})
 
 // onMounted(() => {window.addEventListener("scroll", () => (isOpen.value = false));});
 
 watch(isOpen, () => {
   // document.body.classList.toggle("overflow-hidden");
 
-  nextTick(() => isOpen.value && dropDown.value);
-});
+  nextTick(() => isOpen.value && dropDown.value)
+})
 
 const toggle = (event: Event) => {
-  isOpen.value = !isOpen.value;
+  isOpen.value = !isOpen.value
   if (isOpen.value) {
     nextTick(() => {
       if (
@@ -33,11 +33,11 @@ const toggle = (event: Event) => {
           event.clientY,
           event.clientX,
           event.currentTarget.offsetHeight
-        );
+        )
       }
-    });
+    })
   }
-};
+}
 
 const getPositionClasses = (
   clientY: number,
@@ -49,95 +49,95 @@ const getPositionClasses = (
     getBottomClass(clientY, offsetHeight),
     getRightClass(clientY, clientX, offsetHeight),
     getLeftClass(clientY, clientX, offsetHeight),
-  ];
-};
+  ]
+}
 
 const getTopClass = (clickCoordY: number, offsetHeight: number) => {
-  const dropdownHeight = dropDown.value.offsetHeight;
+  const dropdownHeight = dropDown.value.offsetHeight
   if (window.innerHeight - clickCoordY < dropdownHeight) {
-    return "-top-14";
+    return '-top-14'
   }
   if (window.innerHeight - clickCoordY < dropdownHeight + offsetHeight) {
-    return "top-0";
+    return 'top-0'
   }
 
-  return "top-8";
-};
+  return 'top-8'
+}
 
 const getBottomClass = (clickCoordY: number, offsetHeight: number) => {
   if (window.innerHeight - clickCoordY < offsetHeight) {
-    return "bottom-9";
+    return 'bottom-9'
   }
-  return "buttom-auto";
-};
+  return 'buttom-auto'
+}
 
 const getRightClass = (
   clientY: number,
   clientX: number,
   offsetHeight: number
 ) => {
-  const dropdownWidth = dropDown.value.offsetWidth;
-  const dropdownHeight = dropDown.value.offsetHeight;
+  const dropdownWidth = dropDown.value.offsetWidth
+  const dropdownHeight = dropDown.value.offsetHeight
   if (window.innerWidth - clientX > dropdownWidth) {
-    return "right-auto";
+    return 'right-auto'
   }
   if (window.innerHeight - clientY > dropdownHeight + offsetHeight) {
-    return "right-0";
+    return 'right-0'
   }
   if (window.innerHeight - clientY > dropdownHeight) {
-    return "right-8";
+    return 'right-8'
   }
-  return "right-0";
-};
+  return 'right-0'
+}
 
 const getLeftClass = (
   clientY: number,
   clientX: number,
   offsetHeight: number
 ) => {
-  const dropdownWidth = dropDown.value.offsetWidth;
-  const dropdownHeight = dropDown.value.offsetHeight;
+  const dropdownWidth = dropDown.value.offsetWidth
+  const dropdownHeight = dropDown.value.offsetHeight
 
   if (window.innerWidth - clientX < dropdownWidth) {
-    return "left-auto";
+    return 'left-auto'
   }
   if (window.innerHeight - clientY < dropdownHeight) {
-    return "left-auto";
+    return 'left-auto'
   }
   if (window.innerHeight - clientY > dropdownHeight + offsetHeight) {
-    return "left-auto";
+    return 'left-auto'
   }
-  return "left-8";
-};
+  return 'left-8'
+}
 
-onKeyStroke("Escape", () => {
-  isOpen.value = false;
-});
+onKeyStroke('Escape', () => {
+  isOpen.value = false
+})
 
 const buttonClasses = computed(() => {
   return [
-    "-mt-1",
-    "ml-auto",
-    "p-1",
-    "text-gray-500",
-    "hover:text-gray-700",
-    "focus:outline-none",
-    "group-hover:opacity-100",
-    isOpen.value ? "opacity-100" : "opacity-0",
-  ];
-});
+    '-mt-1',
+    'ml-auto',
+    'p-1',
+    'text-gray-500',
+    'hover:text-gray-700',
+    'focus:outline-none',
+    'group-hover:opacity-100',
+    isOpen.value ? 'opacity-100' : 'opacity-0',
+  ]
+})
 const dropdownClasses = computed(() => {
   return [
-    "z-30",
-    "absolute",
-    "w-48",
-    "rounded",
-    "shadow",
-    "bg-white",
-    "outline-none",
+    'z-30',
+    'absolute',
+    'w-48',
+    'rounded',
+    'shadow',
+    'bg-white',
+    'outline-none',
     ...positionClasses.value,
-  ];
-});
+  ]
+})
 </script>
 
 <template>

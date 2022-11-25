@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { toRefs } from "vue";
-import { iconType } from "../../icons";
-import BaseIcon from "./BaseIcon.vue";
+import { toRefs } from 'vue'
+import { iconType } from '../../icons'
+import BaseIcon from './BaseIcon.vue'
 
 interface Props {
-  label: string;
-  icon: iconType;
+  label: string
+  icon: iconType
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const { icon, label } = toRefs(props);
+const { icon, label } = toRefs(props)
 </script>
 
 <template>
