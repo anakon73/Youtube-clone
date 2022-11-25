@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { get, set } from '@vueuse/shared'
+import { onMounted, ref, toRefs, computed } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 
 interface Props {
-  modelValue: string
+  query: string
+  // queryModifiers: {
+  //   'no-extra-spaces'?: boolean
+  // }
 }
 
 const props = defineProps<Props>()
 
-const emits = defineEmits(['update:modelValue'])
+const { query } = toRefs(props)
+
+const emits = defineEmits(['update:query'])
 
 const el = ref()
 const classes = <string[]>[
@@ -26,8 +32,13 @@ const classes = <string[]>[
 
 const updateValue = (event: Event) => {
   if (event.target instanceof HTMLInputElement) {
-    const { target } = event
-    emits('update:modelValue', target.value)
+    let {
+      target: { value },
+    } = event
+    // if (queryModifiers.value['no-extra-spaces']) {
+    //   value = value.replace(/\s+/g, ' ').trim()
+    // }
+    emits('update:query', value)
   }
 }
 
@@ -45,12 +56,12 @@ onMounted(() => {
       type="text"
       placeholder="Search"
       :class="classes"
-      :value="props.modelValue"
+      :value="query"
       @input="updateValue"
     />
     <button
-      v-show="modelValue"
-      @click="$emit('update:modelValue', '')"
+      v-show="query"
+      @click="$emit('update:query', '')"
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
     >
       <BaseIcon name="x" class="w-5 h-5" />
