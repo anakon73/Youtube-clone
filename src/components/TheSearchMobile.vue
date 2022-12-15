@@ -5,12 +5,21 @@ import TheSearch from './TheSearch.vue'
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
+type Props = {
+  searchQuery: string
+}
+const { searchQuery } = defineProps<Props>()
+
 const el = ref()
 
-const emit = defineEmits(['close'])
+const emits = defineEmits(['close', 'update-search-query'])
+
+const updateQuery = (event: Event) => {
+  emits('update-search-query', event)
+}
 
 onClickOutside(el, () => {
-  emit('close')
+  emits('close')
 })
 </script>
 
@@ -21,7 +30,7 @@ onClickOutside(el, () => {
         <BaseIcon name="arrowLeft" class="w-5 h-5" />
       </button>
     </BaseTooltip>
-    <TheSearch />
+    <TheSearch :search-query="searchQuery" @update-search-query="updateQuery" />
     <BaseTooltip text="Search with your voice" left>
       <button class="p-2 focus:outline-none">
         <BaseIcon name="microphone" class="w-5 h-5" />

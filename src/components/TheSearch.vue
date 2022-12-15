@@ -2,9 +2,15 @@
 import SearchInput from './UI/SearchInput.vue'
 import SearchButton from './UI/SearchButton.vue'
 import SearchResults from './UI/SearchResults.vue'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
-const query = ref<string>('')
+type Props = {
+  searchQuery: string
+}
+
+const { searchQuery } = defineProps<Props>()
+
+const query = ref<string>(searchQuery)
 
 const keywords = ref<string[]>([
   'new york giants',
@@ -23,6 +29,8 @@ const keywords = ref<string[]>([
   'new york accent',
 ])
 
+const emit = defineEmits(['update-search-query'])
+
 const results = computed<string[]>(() => {
   if (!query.value) {
     return []
@@ -31,6 +39,10 @@ const results = computed<string[]>(() => {
 })
 
 const trimmedQuery = computed(() => query.value.replace(/\s+/g, ' ').trim())
+
+watch(query, (query) => {
+  emit('update-search-query', query)
+})
 </script>
 
 <template>

@@ -3,13 +3,14 @@ import { onMounted, ref } from 'vue'
 import TheDropdownApps from './TheDropdownApps.vue'
 import TheDropdownSettings from './TheDropdownSettings.vue'
 import LogoMain from './UI/LogoMain.vue'
-import TheSearch from './TheSearch.vue'
 import ButtonLogin from './UI/ButtonLogin.vue'
 import BaseIcon from './UI/BaseIcon.vue'
 import BaseTooltip from './UI/BaseTooltip.vue'
 import TheSearchMobile from './TheSearchMobile.vue'
 import { computed } from '@vue/reactivity'
+import TheSearchMain from './UI/TheSearchMain.vue'
 
+const searchQuery = ref<string>('')
 const isSmallScreen = ref<boolean>(false)
 const isMobileSearchActive = ref<boolean>(false)
 const classes = <string[]>[
@@ -63,20 +64,16 @@ const emit = defineEmits<{
       </div>
     </div>
     <TheSearchMobile
+      :search-query="searchQuery"
+      @update-search-query="searchQuery = $event"
       v-if="isMobileSearchShown"
       @close="isMobileSearchActive = false"
     />
-    <div
+    <TheSearchMain
       v-else
-      class="hidden sm:flex items-center justify-end p-2.5 pl-8 md:pl-12 md:px-8 flex-1 lg:px-0 lg:w-1/2 max-w-screen-md"
-    >
-      <TheSearch />
-      <BaseTooltip text="Search with your voice">
-        <button class="p-2 focus:outline-none">
-          <BaseIcon name="microphone" class="w-5 h-5" />
-        </button>
-      </BaseTooltip>
-    </div>
+      :search-query="searchQuery"
+      @update-search-query="searchQuery = $event"
+    />
     <div
       :class="[
         'flex',
@@ -109,5 +106,3 @@ const emit = defineEmits<{
     </div>
   </header>
 </template>
-
-<style scoped></style>
