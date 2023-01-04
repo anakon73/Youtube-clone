@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import BaseTooltip from './BaseTooltip.vue'
-import BaseIcon from './BaseIcon.vue'
-import VideoItemInfoDropdown from './VideoItemInfoDropdown.vue'
+
 interface Props {
   index: number
 }
@@ -18,11 +16,7 @@ const summary = computed(() => {
 
 <template>
   <div class="flex items-start mt-3">
-    <img
-      :src="`https://picsum.photos/seed/avatar${index}/68`"
-      class="mr-3 rounded-full w-9 h-9"
-      alt=""
-    />
+    <img :src="`https://picsum.photos/seed/avatar${index}/68`" class="mr-3 rounded-full w-9 h-9" alt="" />
     <div class="text-sm">
       <span class="font-semibold text-gray-800">Video title {{ index }}</span>
       <div class="mt-1 flex">

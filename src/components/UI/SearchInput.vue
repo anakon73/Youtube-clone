@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref, toRefs } from 'vue'
-import BaseIcon from './BaseIcon.vue'
 
 interface Props {
   query: string
@@ -50,19 +49,9 @@ onMounted(() => {
 
 <template>
   <div class="w-full relative">
-    <input
-      ref="el"
-      type="text"
-      placeholder="Search"
-      :class="classes"
-      :value="query"
-      @input="updateValue"
-    />
-    <button
-      v-show="query"
-      @click="$emit('update:query', '')"
-      class="absolute top-0 right-0 h-full px-3 focus:outline-none"
-    >
+    <input ref="el" type="text" placeholder="Search" :class="classes" :value="query" @input="updateValue" />
+    <button v-show="query" @click="$emit('update:query', '')"
+      class="absolute top-0 right-0 h-full px-3 focus:outline-none">
       <BaseIcon name="x" class="w-5 h-5" />
     </button>
   </div>

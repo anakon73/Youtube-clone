@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, toRefs } from 'vue'
 import { iconType } from '../../icons'
-import BaseIcon from './BaseIcon.vue'
 
 interface Props {
   icon: iconType

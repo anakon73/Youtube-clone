@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toRefs, computed } from 'vue'
 import { iconType } from '../../icons'
-import BaseIcon from './BaseIcon.vue'
+
 interface Props {
   icon: iconType
   label: string
@@ -22,12 +22,12 @@ const classes = computed(() => {
 
   return isActive?.value
     ? [
-        ...classes,
-        'font-medium',
-        'text-gray-800',
-        'bg-gray-200',
-        'hover:bg-gray-300',
-      ]
+      ...classes,
+      'font-medium',
+      'text-gray-800',
+      'bg-gray-200',
+      'hover:bg-gray-300',
+    ]
     : [...classes, 'hover:bg-gray-100']
 })
 const iconClasses = computed(() => {

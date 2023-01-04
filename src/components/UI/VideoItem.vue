@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import VideoItemInfo from './VideoItemInfo.vue'
-import VideoItemThumbnail from './VideoItemThumbnail.vue'
-
 interface Props {
   index: number
 }

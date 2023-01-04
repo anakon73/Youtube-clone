@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import BaseIcon from './UI/BaseIcon.vue'
-import BaseTooltip from './UI/BaseTooltip.vue'
 import { ref, toRefs } from 'vue'
 import { onClickOutside, } from '@vueuse/core'
 

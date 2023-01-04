@@ -1,15 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import TheDropdownApps from './TheDropdownApps.vue'
-import TheDropdownSettings from './TheDropdownSettings.vue'
-import LogoMain from './UI/LogoMain.vue'
-import ButtonLogin from './UI/ButtonLogin.vue'
-import BaseIcon from './UI/BaseIcon.vue'
-import BaseTooltip from './UI/BaseTooltip.vue'
-import TheSearchMobile from './TheSearchMobile.vue'
-import TheSearch from './TheSearch.vue'
-import { computed } from '@vue/reactivity'
-import TheSearchMain from './UI/TheSearchMain.vue'
+import { onMounted, ref, computed } from 'vue'
 
 const searchQuery = ref<string>('')
 const isSmallScreen = ref<boolean>(false)

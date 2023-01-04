@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import ButtonLogin from './UI/ButtonLogin.vue'
-import SidebarNavItem from './UI/SidebarNavItem.vue'
-import SidebarSectionHeading from './UI/SidebarSectionHeading.vue'
-import SidebarSelection from './UI/SidebarSelection.vue'
-import TheFooter from './TheFooter.vue'
-</script>
-
 <template>
   <SidebarSelection>
     <SidebarNavItem label="Home" icon="home" is-active />
@@ -14,8 +6,8 @@ import TheFooter from './TheFooter.vue'
   </SidebarSelection>
   <SidebarSelection>
     <SidebarNavItem label="Library" icon="duplicate" />
-    <SidebarNavItem label="History" icon="clock"
-  /></SidebarSelection>
+    <SidebarNavItem label="History" icon="clock" />
+  </SidebarSelection>
   <section class="px-8 py-4 leading-5 border-b">
     <span class="text-sm font-medium">
       Sign in to like videos, comment, and subscribe.
@@ -31,25 +23,25 @@ import TheFooter from './TheFooter.vue'
     <SidebarNavItem label="Movies" icon="film" />
     <SidebarNavItem label="News" icon="newspaper" />
     <SidebarNavItem label="Live" icon="statusOnline" />
-    <SidebarNavItem label="360&deg; Video" icon="eye"
-  /></SidebarSelection>
+    <SidebarNavItem label="360&deg; Video" icon="eye" />
+  </SidebarSelection>
 
-  <SidebarSelection
-    ><SidebarNavItem label="Browse channels" icon="plusCircle"
-  /></SidebarSelection>
+  <SidebarSelection>
+    <SidebarNavItem label="Browse channels" icon="plusCircle" />
+  </SidebarSelection>
 
   <SidebarSelection>
     <SidebarSectionHeading title="More from YouTube" />
     <SidebarNavItem label="YouTube Premium" icon="play" />
-    <SidebarNavItem label="Live" icon="statusOnline"
-  /></SidebarSelection>
+    <SidebarNavItem label="Live" icon="statusOnline" />
+  </SidebarSelection>
 
   <SidebarSelection>
     <SidebarNavItem label="Settings" icon="cog" />
     <SidebarNavItem label="Report history" icon="flag" />
     <SidebarNavItem label="Help" icon="questionMarkCircle" />
-    <SidebarNavItem label="Send feedback" icon="annotation"
-  /></SidebarSelection>
+    <SidebarNavItem label="Send feedback" icon="annotation" />
+  </SidebarSelection>
   <SidebarSelection class="px-6 py-4 text-xs font-semibold space-y-4">
     <TheFooter />
   </SidebarSelection>

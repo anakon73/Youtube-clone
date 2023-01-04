@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import SidebarContent from './SidebarContent.vue'
 
 const classes = computed(() => {
   return [

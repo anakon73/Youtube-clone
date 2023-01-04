@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { toRefs, watch } from 'vue';
-import BaseIcon from './BaseIcon.vue'
-import BaseTooltip from './BaseTooltip.vue'
-
 const emits = defineEmits(['update-search-query'])
 
 const classes: string[] = [

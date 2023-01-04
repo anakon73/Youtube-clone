@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import BaseIcon from './BaseIcon.vue'
-import BaseTooltip from './BaseTooltip.vue'
-
 const classes = <string[]>[
   'h-full',
   'focus:outline-none',

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { toRefs } from 'vue'
 import { iconType } from '../../icons'
-import BaseIcon from './BaseIcon.vue'
 
 interface Props {
   label: string

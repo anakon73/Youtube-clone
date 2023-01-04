@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import { iconType } from '../icons'
-import DropdownSettingsListItem from './UI/DropdownSettingsListItem.vue'
 
 interface Props {
   selectedOptions: any
@@ -87,24 +86,15 @@ const onMenuClick = (withSubMenu: boolean, id: string) => {
 <template>
   <section class="border-b py-2">
     <ul>
-      <DropdownSettingsListItem
-        v-for="listItem in listItems.slice(0, 8)"
-        :key="listItem.label"
-        :label="listItem.label"
-        :icon="listItem.icon"
-        :with-sub-menu="listItem.withSubMenu"
-        @click.stop="onMenuClick(listItem.withSubMenu, listItem.id)"
-      />
+      <DropdownSettingsListItem v-for="listItem in listItems.slice(0, 8)" :key="listItem.label" :label="listItem.label"
+        :icon="listItem.icon" :with-sub-menu="listItem.withSubMenu"
+        @click.stop="onMenuClick(listItem.withSubMenu, listItem.id)" />
     </ul>
   </section>
   <section class="py-2">
     <ul>
-      <DropdownSettingsListItem
-        :label="listItems[8].label"
-        :icon="listItems[8].icon"
-        withSubMenu
-        @click.stop="onMenuClick(listItems[8].withSubMenu, listItems[8].id)"
-      />
+      <DropdownSettingsListItem :label="listItems[8].label" :icon="listItems[8].icon" withSubMenu
+        @click.stop="onMenuClick(listItems[8].withSubMenu, listItems[8].id)" />
     </ul>
   </section>
 </template>

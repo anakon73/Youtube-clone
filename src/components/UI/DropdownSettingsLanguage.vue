@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
-import DropdownSettingsListItem from './DropdownSettingsListItem.vue'
 
 interface Props {
   selectedOptions: any
@@ -21,20 +19,12 @@ const emits = defineEmits(['select-menu', 'select-option'])
 </script>
 
 <template>
-  <DropdownSettingsHeader
-    @back="$emit('select-menu', 'main')"
-    title="Choose your language"
-  />
+  <DropdownSettingsHeader @back="$emit('select-menu', 'main')" title="Choose your language" />
   <section class="border-b py-2">
     <ul class="max-h-96 overflow-auto">
-      <DropdownSettingsListItem
-        v-for="(languageName, languageId) in languages"
-        icon="check"
-        :key="languageId"
-        :label="languageName"
-        :active="languageId === selectedOptions.language.id"
-        @click="selectedOption({ id: languageId, text: languageName })"
-      />
+      <DropdownSettingsListItem v-for="(languageName, languageId) in languages" icon="check" :key="languageId"
+        :label="languageName" :active="languageId === selectedOptions.language.id"
+        @click="selectedOption({ id: languageId, text: languageName })" />
     </ul>
   </section>
 </template>

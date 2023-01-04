@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import SearchInput from './UI/SearchInput.vue'
-import SearchButton from './UI/SearchButton.vue'
-import SearchResults from './UI/SearchResults.vue'
 import { ref, computed, watch, toRefs } from 'vue'
 
 type Props = {

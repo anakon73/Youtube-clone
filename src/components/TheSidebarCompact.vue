@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import SidebarCompactNavItem from './UI/SidebarCompactNavItem.vue'
 import { computed, ref } from 'vue'
 import { iconType } from '../icons'
 
@@ -34,13 +33,8 @@ const classes = computed(() => {
   <aside :class="classes">
     <section>
       <ul>
-        <SidebarCompactNavItem
-          v-for="navItem in navItems"
-          :key="navItem.label"
-          :label="navItem.label"
-          :icon="navItem.icon"
-          :is-active="navItem.isActive"
-        />
+        <SidebarCompactNavItem v-for="navItem in navItems" :key="navItem.label" :label="navItem.label"
+          :icon="navItem.icon" :is-active="navItem.isActive" />
       </ul>
     </section>
   </aside>
