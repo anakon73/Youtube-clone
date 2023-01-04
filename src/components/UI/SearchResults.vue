@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { toRefs } from '@vueuse/shared';
 import { computed } from 'vue'
 
 interface Props {
   results: string[]
-  activeResultId: number | null
+  activeResultId: number
 }
 
-const { results, activeResultId } = defineProps<Props>()
+const props = defineProps<Props>()
+
+const { results, activeResultId } = toRefs(props)
 
 const classes: string[] = [
   'absolute',
@@ -22,7 +25,7 @@ const classes: string[] = [
 
 const itemclasses = computed(() => {
   return (resultId: number) => [
-    resultId === activeResultId ? 'bg-gray-100' : 'hover:bg-gray-100',
+    resultId === activeResultId.value ? 'bg-gray-100' : 'hover:bg-gray-100',
     'text-black',
     'px-3',
     'py-1',
