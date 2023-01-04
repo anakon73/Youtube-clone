@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { get, set } from '@vueuse/shared'
-import { onMounted, ref, toRefs, computed } from 'vue'
+import { onMounted, ref, toRefs } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 
 interface Props {

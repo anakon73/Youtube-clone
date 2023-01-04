@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 interface Props {
   results: string[]
+  activeResultId: number | null
 }
 
-const props = defineProps<Props>()
+const { results, activeResultId } = defineProps<Props>()
 
 const classes: string[] = [
   'absolute',
@@ -17,14 +20,16 @@ const classes: string[] = [
   'pt-4',
 ]
 
-const itemclasses: string[] = [
-  'hover:bg-gray-100',
-  'text-black',
-  'px-3',
-  'py-1',
-  'select-none',
-  'truncate',
-]
+const itemclasses = computed(() => {
+  return (resultId: number) => [
+    resultId === activeResultId ? 'bg-gray-100' : 'hover:bg-gray-100',
+    'text-black',
+    'px-3',
+    'py-1',
+    'select-none',
+    'truncate',
+  ]
+})
 
 const reportLinkClasses: string[] = [
   'w-full',
@@ -41,8 +46,8 @@ const reportLinkClasses: string[] = [
 <template>
   <div :class="classes">
     <ul>
-      <li v-for="result in results" :key="result" :class="itemclasses">
-        {{ result }}
+      <li v-for="(text, id) in results" :key="text" :class="itemclasses(id)">
+        {{ text }}
       </li>
     </ul>
     <a href="#" :class="reportLinkClasses">Report search predictions</a>

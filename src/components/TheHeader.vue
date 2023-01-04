@@ -7,6 +7,7 @@ import ButtonLogin from './UI/ButtonLogin.vue'
 import BaseIcon from './UI/BaseIcon.vue'
 import BaseTooltip from './UI/BaseTooltip.vue'
 import TheSearchMobile from './TheSearchMobile.vue'
+import TheSearch from './TheSearch.vue'
 import { computed } from '@vue/reactivity'
 import TheSearchMain from './UI/TheSearchMain.vue'
 
@@ -39,6 +40,10 @@ const isMobileSearchShown = computed(() => {
   return isSmallScreen.value && isMobileSearchActive.value
 })
 
+const closeMobileSearch = () => {
+  isMobileSearchActive.value = false
+}
+
 const emit = defineEmits<{
   (e: 'toggleSidebar', type: null): void
 }>()
@@ -46,56 +51,41 @@ const emit = defineEmits<{
 
 <template>
   <header :class="classes">
-    <div
-      :class="[
-        'lg:w-1/4',
-        'flex',
-        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
-      ]"
-    >
+    <div :class="[
+      'lg:w-1/4',
+      'flex',
+      isMobileSearchShown ? 'opacity-0' : 'opacity-100',
+    ]">
       <div class="flex items-center xl:w-64 xl:bg-white pl-4">
-        <button
-          @click="$emit('toggleSidebar')"
-          class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none"
-        >
+        <button @click="$emit('toggleSidebar')" class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none">
           <BaseIcon name="menu" />
         </button>
         <LogoMain />
       </div>
     </div>
-    <TheSearchMobile
-      :search-query="searchQuery"
-      @update-search-query="searchQuery = $event"
-      v-if="isMobileSearchShown"
-      @close="isMobileSearchActive = false"
-    />
-    <TheSearchMain
-      v-else
-      :search-query="searchQuery"
-      @update-search-query="searchQuery = $event"
-    />
-    <div
-      :class="[
-        'flex',
-        'items-center',
-        'justify-end',
-        'lg:w-1/4',
-        'sm:space-x-3',
-        'p-2',
-        'sm:px-4',
-        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
-      ]"
-    >
+    <TheSearchMobile v-if="isMobileSearchShown" @close="closeMobileSearch">
+      <TheSearch :search-query="searchQuery" @update-search-query="searchQuery = $event" />
+    </TheSearchMobile>
+    <TheSearchMain v-else>
+      <TheSearch :search-query="searchQuery" @update-search-query="searchQuery = $event" />
+    </TheSearchMain>
+    <div :class="[
+      'flex',
+      'items-center',
+      'justify-end',
+      'lg:w-1/4',
+      'sm:space-x-3',
+      'p-2',
+      'sm:px-4',
+      isMobileSearchShown ? 'opacity-0' : 'opacity-100',
+    ]">
       <BaseTooltip text="Search with your voice">
         <button class="sm:hidden p-2 focus:outline-none">
           <BaseIcon name="microphone" class="w-5 h-5" />
         </button>
       </BaseTooltip>
       <BaseTooltip text="Search">
-        <button
-          @click.stop="isMobileSearchActive = true"
-          class="sm:hidden p-2 focus:outline-none"
-        >
+        <button @click.stop="isMobileSearchActive = true" class="sm:hidden p-2 focus:outline-none">
           <BaseIcon name="search" class="w-5 h-5" />
         </button>
       </BaseTooltip>
