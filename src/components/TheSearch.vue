@@ -11,8 +11,8 @@ const props = defineProps<Props>()
 const { searchQuery } = toRefs(props)
 
 const query = ref<string>(searchQuery.value)
+const isSearchResultsShown = ref<boolean>(false)
 const activeSearchResultId = ref<number | null>(null)
-const isSearchResultsShown = ref<boolean | number>(false)
 const keywords = ref<string[]>([
   'new york giants',
   'new york alicia keys',
@@ -94,8 +94,8 @@ onKeyUp('ArrowDown', () => { handleNextSearchResult() })
 <template>
   <div class="flex w-full mr-2">
     <div class="relative flex w-full">
-      <SearchInput v-model:query="query" />
-      <SearchResults v-show="results.length" :results="results" :active-result-id="activeSearchResultId" />
+      <SearchInput v-model:query="query" @change-state="toggleSearchResults" :has-results="results.length" />
+      <SearchResults v-show="isSearchResultsShown" :results="results" :active-result-id="activeSearchResultId" />
     </div>
     <SearchButton />
   </div>
