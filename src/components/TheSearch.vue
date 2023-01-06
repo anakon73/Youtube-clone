@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onKeyUp } from '@vueuse/core';
+import { onKeyUp } from '@vueuse/core'
 import { ref, computed, watch, toRefs } from 'vue'
 
 type Props = {
@@ -11,6 +11,8 @@ const props = defineProps<Props>()
 const { searchQuery } = toRefs(props)
 
 const query = ref<string>(searchQuery.value)
+const activeQuery = ref<string>(searchQuery.value)
+const results = ref<string[]>([])
 const isSearchResultsShown = ref<boolean>(false)
 const activeSearchResultId = ref<number | null>(null)
 const keywords = ref<string[]>([
@@ -32,35 +34,39 @@ const keywords = ref<string[]>([
 
 const emit = defineEmits(['update-search-query'])
 
-const results = computed<string[]>(() => {
-  if (!query.value) {
-    return []
+const updateSearchResults = () => {
+  activeQuery.value = query.value
+  if (query.value === '') {
+    results.value = []
+  } else {
+    results.value = keywords.value.filter((result) =>
+      result.includes(trimmedQuery.value)
+    )
   }
-  return keywords.value.filter((result) => result.includes(trimmedQuery.value))
-})
+}
 
 const trimmedQuery = computed(() => query.value.replace(/\s+/g, ' ').trim())
 
 const makePreviousSearchResult = () => {
   if (activeSearchResultId.value === null) {
     activeSearchResultId.value = results.value.length - 1
-  }
-  else if (activeSearchResultId.value === 0) {
+  } else if (activeSearchResultId.value === 0) {
     activeSearchResultId.value = null
   } else {
     activeSearchResultId.value--
   }
+  updateQueryWithSearchResults()
 }
 
 const makeNextSearchResult = () => {
   if (activeSearchResultId.value === null) {
     activeSearchResultId.value = 0
-  }
-  else if (activeSearchResultId.value + 1 === results.value.length) {
+  } else if (activeSearchResultId.value + 1 === results.value.length) {
     activeSearchResultId.value = null
   } else {
     activeSearchResultId.value++
   }
+  updateQueryWithSearchResults()
 }
 
 const handlePreviousSearchResult = () => {
@@ -78,6 +84,14 @@ const handleNextSearchResult = () => {
   }
 }
 
+const updateQueryWithSearchResults = () => {
+  const hasActiveSearchResults = activeSearchResultId.value !== null
+
+  query.value = hasActiveSearchResults
+    ? results.value[activeSearchResultId.value]
+    : activeQuery.value
+}
+
 const toggleSearchResults = (isSearchInputActive: boolean) => {
   isSearchResultsShown.value = isSearchInputActive && results.value.length
 }
@@ -86,16 +100,28 @@ watch(query, (query) => {
   emit('update-search-query', query)
 })
 
-onKeyUp('ArrowUp', () => { handlePreviousSearchResult() })
-onKeyUp('ArrowDown', () => { handleNextSearchResult() })
-
+onKeyUp('ArrowUp', () => {
+  handlePreviousSearchResult()
+})
+onKeyUp('ArrowDown', () => {
+  handleNextSearchResult()
+})
 </script>
 
 <template>
   <div class="flex w-full mr-2">
     <div class="relative flex w-full">
-      <SearchInput v-model:query="query" @change-state="toggleSearchResults" :has-results="results.length" />
-      <SearchResults v-show="isSearchResultsShown" :results="results" :active-result-id="activeSearchResultId" />
+      <SearchInput
+        v-model:query="query"
+        @change-state="toggleSearchResults"
+        :has-results="results.length"
+        @update:query="updateSearchResults"
+      />
+      <SearchResults
+        v-show="isSearchResultsShown"
+        :results="results"
+        :active-result-id="activeSearchResultId"
+      />
     </div>
     <SearchButton />
   </div>

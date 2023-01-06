@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, toRefs } from 'vue'
+import { onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
 
 type Props = {
   query: string
@@ -79,11 +79,27 @@ const onKeyDown = (event: Event) => {
   }
 }
 
+const onArrow = () => {
+  if (event instanceof KeyboardEvent) {
+    const isInputFocused = input.value === document.activeElement
+
+    if (event.keyCode === 38 || event.keyCode === 40) {
+      event.preventDefault()
+    }
+  }
+}
+
 onMounted(() => {
   if (innerWidth < 640) {
     input.value.focus()
   }
   document.addEventListener('keydown', onKeyDown)
+  document.addEventListener('keydown', onArrow)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', onKeyDown)
+  document.removeEventListener('keydown', onArrow)
 })
 </script>
 
