@@ -63,14 +63,31 @@ const removeSelection = () => {
   input.value.setSelectionRange(end, end)
 }
 
+const clear = () => {
+  input.value.focus()
+  emits('update:query', '')
+}
+
+const onKeyDown = (event: Event) => {
+  if (event instanceof KeyboardEvent) {
+    const isInputFocused = input.value === document.activeElement
+
+    if (event.code === 'Slash' && !isInputFocused) {
+      event.preventDefault()
+      input.value.focus()
+    }
+  }
+}
+
 onMounted(() => {
   if (innerWidth < 640) {
     input.value.focus()
   }
+  document.addEventListener('keydown', onKeyDown)
 })
 </script>
 
-<template noInheritAttrs>
+<template>
   <div class="w-full relative">
     <input
       ref="input"
@@ -86,7 +103,7 @@ onMounted(() => {
     />
     <button
       v-show="query"
-      @click="$emit('update:query', '')"
+      @click="clear"
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
     >
       <BaseIcon name="x" class="w-5 h-5" />
