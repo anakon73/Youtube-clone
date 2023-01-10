@@ -2,16 +2,8 @@
 import { onKeyUp } from '@vueuse/core'
 import { ref, computed, watch, toRefs, onMounted, onBeforeUnmount } from 'vue'
 
-type Props = {
-  searchQuery: string
-}
-
-const props = defineProps<Props>()
-
-const { searchQuery } = toRefs(props)
-
-const query = ref<string>(searchQuery.value)
-const activeQuery = ref<string>(searchQuery.value)
+const query = ref<string>('')
+const activeQuery = ref<string>('')
 const results = ref<string[]>([])
 const isSearchResultsShown = ref<boolean>(false)
 const activeSearchResultId = ref<number | null>(null)
@@ -31,8 +23,6 @@ const keywords = ref<string[]>([
   'new york giants live stream',
   'new york accent',
 ])
-
-const emit = defineEmits(['update-search-query'])
 
 const updateSearchResults = () => {
   activeQuery.value = query.value
@@ -96,7 +86,7 @@ const toggleSearchResults = (isSearchInputActive: boolean) => {
   isSearchResultsShown.value = isSearchInputActive && results.value.length > 0
 }
 
-const handleClick = () => {
+const onClickAndResize = () => {
   toggleSearchResults(false)
 }
 
@@ -110,10 +100,6 @@ const selectSearchResult = () => {
   updateSearchResults()
 }
 
-watch(query, (query) => {
-  emit('update-search-query', query)
-})
-
 onKeyUp('ArrowUp', () => {
   handlePreviousSearchResult()
 })
@@ -122,10 +108,8 @@ onKeyUp('ArrowDown', () => {
 })
 
 onMounted(() => {
-  document.addEventListener('click', handleClick)
-})
-onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClick)
+  window.addEventListener('click', onClickAndResize)
+  window.addEventListener('resize', onClickAndResize)
 })
 </script>
 

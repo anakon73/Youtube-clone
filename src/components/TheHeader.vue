@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 
-const searchQuery = ref<string>('')
 const isSmallScreen = ref<boolean>(false)
 const isMobileSearchActive = ref<boolean>(false)
 const classes = <string[]>[
@@ -37,45 +36,59 @@ const closeMobileSearch = () => {
 const emit = defineEmits<{
   (e: 'toggleSidebar', type: null): void
 }>()
+
+const isSearchShown = computed(() => {
+  return isMobileSearchShown.value || !isSmallScreen.value
+})
 </script>
 
 <template>
   <header :class="classes">
-    <div :class="[
-      'lg:w-1/4',
-      'flex',
-      isMobileSearchShown ? 'opacity-0' : 'opacity-100',
-    ]">
+    <div
+      :class="[
+        'lg:w-1/4',
+        'flex',
+        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
+      ]"
+    >
       <div class="flex items-center xl:w-64 xl:bg-white pl-4">
-        <button @click="$emit('toggleSidebar')" class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none">
+        <button
+          @click="$emit('toggleSidebar')"
+          class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none"
+        >
           <BaseIcon name="menu" />
         </button>
         <LogoMain />
       </div>
     </div>
-    <TheSearchMobile v-if="isMobileSearchShown" @close="closeMobileSearch">
-      <TheSearch :search-query="searchQuery" @update-search-query="searchQuery = $event" />
-    </TheSearchMobile>
-    <TheSearchMain v-else>
-      <TheSearch :search-query="searchQuery" @update-search-query="searchQuery = $event" />
-    </TheSearchMain>
-    <div :class="[
-      'flex',
-      'items-center',
-      'justify-end',
-      'lg:w-1/4',
-      'sm:space-x-3',
-      'p-2',
-      'sm:px-4',
-      isMobileSearchShown ? 'opacity-0' : 'opacity-100',
-    ]">
+    <TheSearchWrapper
+      v-show="isSearchShown"
+      :is-small-screen="isSmallScreen"
+      @close="closeMobileSearch"
+    />
+
+    <div
+      :class="[
+        'flex',
+        'items-center',
+        'justify-end',
+        'lg:w-1/4',
+        'sm:space-x-3',
+        'p-2',
+        'sm:px-4',
+        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
+      ]"
+    >
       <BaseTooltip text="Search with your voice">
         <button class="sm:hidden p-2 focus:outline-none">
           <BaseIcon name="microphone" class="w-5 h-5" />
         </button>
       </BaseTooltip>
       <BaseTooltip text="Search">
-        <button @click.stop="isMobileSearchActive = true" class="sm:hidden p-2 focus:outline-none">
+        <button
+          @click.stop="isMobileSearchActive = true"
+          class="sm:hidden p-2 focus:outline-none"
+        >
           <BaseIcon name="search" class="w-5 h-5" />
         </button>
       </BaseTooltip>
