@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onKeyUp } from '@vueuse/core'
-import { ref, computed, watch, toRefs } from 'vue'
+import { ref, computed, watch, toRefs, onMounted, onBeforeUnmount } from 'vue'
 
 type Props = {
   searchQuery: string
@@ -55,7 +55,6 @@ const makePreviousSearchResult = () => {
   } else {
     activeSearchResultId.value--
   }
-  updateQueryWithSearchResults()
 }
 
 const makeNextSearchResult = () => {
@@ -66,12 +65,12 @@ const makeNextSearchResult = () => {
   } else {
     activeSearchResultId.value++
   }
-  updateQueryWithSearchResults()
 }
 
 const handlePreviousSearchResult = () => {
   if (isSearchResultsShown.value) {
     makePreviousSearchResult()
+    updateQueryWithSearchResults()
   } else {
     toggleSearchResults(true)
   }
@@ -79,6 +78,7 @@ const handlePreviousSearchResult = () => {
 const handleNextSearchResult = () => {
   if (!isSearchResultsShown.value) {
     toggleSearchResults(true)
+    updateQueryWithSearchResults()
   } else {
     makeNextSearchResult()
   }
@@ -93,7 +93,21 @@ const updateQueryWithSearchResults = () => {
 }
 
 const toggleSearchResults = (isSearchInputActive: boolean) => {
-  isSearchResultsShown.value = isSearchInputActive && results.value.length
+  isSearchResultsShown.value = isSearchInputActive && results.value.length > 0
+}
+
+const handleClick = () => {
+  toggleSearchResults(false)
+}
+
+const selectSearchResult = () => {
+  query.value = activeSearchResultId.value
+    ? results.value[activeSearchResultId.value]
+    : query.value
+
+  toggleSearchResults(false)
+
+  updateSearchResults()
 }
 
 watch(query, (query) => {
@@ -106,6 +120,13 @@ onKeyUp('ArrowUp', () => {
 onKeyUp('ArrowDown', () => {
   handleNextSearchResult()
 })
+
+onMounted(() => {
+  document.addEventListener('click', handleClick)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClick)
+})
 </script>
 
 <template>
@@ -116,13 +137,17 @@ onKeyUp('ArrowDown', () => {
         @change-state="toggleSearchResults"
         :has-results="results.length"
         @update:query="updateSearchResults"
+        @enter="selectSearchResult"
       />
       <SearchResults
         v-show="isSearchResultsShown"
         :results="results"
         :active-result-id="activeSearchResultId"
+        @search-result-mouseenter="activeSearchResultId = $event"
+        @search-result-mouseleave="activeSearchResultId = null"
+        @search-result-click="selectSearchResult"
       />
     </div>
-    <SearchButton />
+    <SearchButton @click.stop="selectSearchResult" />
   </div>
 </template>

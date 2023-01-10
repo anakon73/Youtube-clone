@@ -33,10 +33,21 @@ watch(isOpen, () => {
         <BaseIcon name="viewGrid" class="h-5 w-5" />
       </button>
     </BaseTooltip>
-    <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95"
-      enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75"
-      leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-      <div v-show="isOpen" ref="dropDown" tabindex="-1" @keydown.esc="isOpen = false" :class="dropdownClasses">
+    <transition
+      enter-active-class="transition ease-out duration-100"
+      enter-from-class="transform opacity-0 scale-95"
+      enter-to-class="transform opacity-100 scale-100"
+      leave-active-class="transition ease-in duration-75"
+      leave-from-class="transform opacity-100 scale-100"
+      leave-to-class="transform opacity-0 scale-95"
+    >
+      <div
+        v-show="isOpen"
+        ref="dropDown"
+        tabindex="-1"
+        @keydown.esc="isOpen = false"
+        :class="dropdownClasses"
+      >
         <section class="border-b py-2">
           <ul>
             <DropdownAppsListItem label="YouTube TV" />

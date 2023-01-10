@@ -14,7 +14,7 @@ const isActive = ref<boolean>(false)
 
 const { query, hasResults } = toRefs(props)
 
-const emits = defineEmits(['update:query', 'change-state'])
+const emits = defineEmits(['update:query', 'change-state', 'enter'])
 
 const input = ref()
 const classes = <string[]>[
@@ -68,6 +68,14 @@ const clear = () => {
   emits('update:query', '')
 }
 
+const handleEnter = () => {
+  setState(false)
+
+  input.value.blur()
+
+  emits('enter')
+}
+
 const onKeyDown = (event: Event) => {
   if (event instanceof KeyboardEvent) {
     const isInputFocused = input.value === document.activeElement
@@ -113,9 +121,9 @@ onBeforeUnmount(() => {
       :value="query"
       @input="updateValue"
       @focus="setState(true)"
-      @blur="setState(false)"
-      @click="setState(true)"
+      @click.stop="setState(true)"
       @keyup.esc="handleEsc"
+      @keydown.enter="handleEnter"
     />
     <button
       v-show="query"

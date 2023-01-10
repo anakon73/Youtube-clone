@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toRefs } from '@vueuse/shared';
+import { toRefs } from '@vueuse/shared'
 import { computed } from 'vue'
 
 interface Props {
@@ -10,6 +10,12 @@ interface Props {
 const props = defineProps<Props>()
 
 const { results, activeResultId } = toRefs(props)
+
+const emits = defineEmits([
+  'search-result-mouseenter',
+  'search-result-mouseleave',
+  'search-result-click',
+])
 
 const classes: string[] = [
   'absolute',
@@ -23,16 +29,16 @@ const classes: string[] = [
   'pt-4',
 ]
 
-const itemclasses = computed(() => {
-  return (resultId: number) => [
-    resultId === activeResultId.value ? 'bg-gray-100' : 'hover:bg-gray-100',
+const getItemClasses = (resultId: number) => {
+  return [
+    resultId === activeResultId.value ? 'bg-gray-100' : 'bg-transparent',
     'text-black',
     'px-3',
     'py-1',
     'select-none',
     'truncate',
   ]
-})
+}
 
 const reportLinkClasses: string[] = [
   'w-full',
@@ -49,8 +55,17 @@ const reportLinkClasses: string[] = [
 <template>
   <div :class="classes">
     <ul>
-      <li v-for="(text, id) in results" :key="text" :class="itemclasses(id)">
-        {{ text }}
+      <li
+        v-for="(text, id) in results"
+        :key="text"
+        :class="getItemClasses(id)"
+        @mouseenter="$emit('search-result-mouseenter', id)"
+        @mouseleave="$emit('search-result-mouseleave')"
+        @click.stop="$emit('search-result-click')"
+      >
+        <span @mouseenter="$emit('search-result-mouseenter', id)">{{
+          text
+        }}</span>
       </li>
     </ul>
     <a href="#" :class="reportLinkClasses">Report search predictions</a>
