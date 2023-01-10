@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, provide } from 'vue'
 
 const isSmallScreen = ref<boolean>(false)
 const isMobileSearchActive = ref<boolean>(false)
@@ -40,6 +40,11 @@ const emit = defineEmits<{
 const isSearchShown = computed(() => {
   return isMobileSearchShown.value || !isSmallScreen.value
 })
+
+provide(
+  'isMobileSearchActive',
+  computed(() => isMobileSearchActive.value)
+)
 </script>
 
 <template>

@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
+import {
+  inject,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  toRefs,
+  watch,
+} from 'vue'
 
 type Props = {
   query: string
@@ -96,6 +104,10 @@ const onArrow = () => {
     }
   }
 }
+
+const isMobileSearchActive: any = inject('isMobileSearchActive')
+
+watch(isMobileSearchActive, () => nextTick(() => input.value.focus()))
 
 onMounted(() => {
   if (innerWidth < 640) {
