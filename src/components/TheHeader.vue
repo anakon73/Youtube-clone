@@ -41,6 +41,26 @@ const isSearchShown = computed(() => {
   return isMobileSearchShown.value || !isSmallScreen.value
 })
 
+const opacity = computed((): string => {
+  return isMobileSearchShown.value ? 'opacity-0' : 'opacity-100'
+})
+
+const leftSideClasses = computed(() => {
+  return ['lg:w-1/4', 'flex', opacity]
+})
+const rightSideClasses = computed(() => {
+  return [
+    'flex',
+    'items-center',
+    'justify-end',
+    'lg:w-1/4',
+    'sm:space-x-3',
+    'p-2',
+    'sm:px-4',
+    opacity,
+  ]
+})
+
 provide(
   'isMobileSearchActive',
   computed(() => isMobileSearchActive.value)
@@ -49,13 +69,7 @@ provide(
 
 <template>
   <header :class="classes">
-    <div
-      :class="[
-        'lg:w-1/4',
-        'flex',
-        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
-      ]"
-    >
+    <div :class="leftSideClasses">
       <div class="flex items-center xl:w-64 xl:bg-white pl-4">
         <button
           @click="$emit('toggleSidebar')"
@@ -72,18 +86,7 @@ provide(
       @close="closeMobileSearch"
     />
 
-    <div
-      :class="[
-        'flex',
-        'items-center',
-        'justify-end',
-        'lg:w-1/4',
-        'sm:space-x-3',
-        'p-2',
-        'sm:px-4',
-        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
-      ]"
-    >
+    <div :class="rightSideClasses">
       <BaseTooltip text="Search with your voice">
         <button class="sm:hidden p-2 focus:outline-none">
           <BaseIcon name="microphone" class="w-5 h-5" />
