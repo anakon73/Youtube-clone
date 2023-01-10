@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, computed } from 'vue'
 
 interface Props {
   text: string
@@ -26,18 +26,20 @@ const getPositionClasses = () => {
   return [topClass, 'left-1/2', '-translate-x-1/2']
 }
 
-const classes = ref<string[]>([
-  'bg-gray-600',
-  'bg-opacity-80',
-  'rounded-sm',
-  'text-white',
-  'text-xs',
-  'whitespace-nowrap',
-  'p-2',
-  'absolute',
-  'transform',
-  ...getPositionClasses(),
-])
+const classes = computed((): string[] => {
+  return [
+    'bg-gray-600',
+    'bg-opacity-80',
+    'rounded-sm',
+    'text-white',
+    'text-xs',
+    'whitespace-nowrap',
+    'p-2',
+    'absolute',
+    'transform',
+    ...getPositionClasses(),
+  ]
+})
 </script>
 
 <template>
