@@ -116,11 +116,6 @@ onMounted(() => {
   document.addEventListener('keydown', onKeyDown)
   document.addEventListener('keydown', onArrow)
 })
-
-onBeforeUnmount(() => {
-  document.removeEventListener('keydown', onKeyDown)
-  document.removeEventListener('keydown', onArrow)
-})
 </script>
 
 <template>
