@@ -12,11 +12,9 @@ const { searchQuery, isSmallScreen } = toRefs(props)
 
 const el = ref()
 
-const emits = defineEmits(['close', 'update-search-query'])
+const emits = defineEmits(['close'])
 
-const updateQuery = (event: Event) => {
-  emits('update-search-query', event)
-}
+const isVoiceModalOpen = ref<boolean>(false)
 
 const classes = computed((): string[] => {
   return isSmallScreen.value
@@ -51,10 +49,10 @@ onClickOutside(el, () => {
     </BaseTooltip>
     <TheSearch />
     <BaseTooltip text="Search with your voice" :left="isSmallScreen">
-      <button class="p-2 focus:outline-none">
+      <button @click="isVoiceModalOpen = true" class="p-2 focus:outline-none">
         <BaseIcon name="microphone" class="w-5 h-5" />
       </button>
     </BaseTooltip>
-    <BaseModal />
+    <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
   </div>
 </template>
