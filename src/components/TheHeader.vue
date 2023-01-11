@@ -112,7 +112,10 @@ provide(
       <ButtonLogin> Sign in </ButtonLogin>
     </div>
     <Teleport to="body">
-      <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
+      <ModalSearchWithVoice
+        v-if="isVoiceModalOpen"
+        @close="isVoiceModalOpen = false"
+      />
     </Teleport>
   </header>
 </template>

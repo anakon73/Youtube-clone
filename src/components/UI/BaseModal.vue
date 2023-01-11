@@ -37,15 +37,12 @@ onKeyDown('Escape', () => close())
     >
       <BaseModalOverlay v-if="isOpen" />
     </Transition>
-    <div v-if="isOpen" ref="Modal" class="relative bg-white max-w-sm m-8">
+    <div v-if="isOpen" ref="Modal" class="relative bg-white w-2/3 m-8">
       <div class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
       <div class="p-6">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis,
-        cupiditate non? Veniam fuga provident nulla eaque ea necessitatibus.
-        Voluptatum sequi illum ipsam ipsum fugiat beatae nulla repellendus neque
-        error repudiandae.
+        <slot />
       </div>
     </div>
   </div>
