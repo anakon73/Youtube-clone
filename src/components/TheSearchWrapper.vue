@@ -3,18 +3,15 @@ import { ref, toRefs, computed } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
 type Props = {
-  searchQuery?: string
   isSmallScreen: boolean
 }
 const props = defineProps<Props>()
 
-const { searchQuery, isSmallScreen } = toRefs(props)
+const { isSmallScreen } = toRefs(props)
 
 const el = ref()
 
-const emits = defineEmits(['close'])
-
-const isVoiceModalOpen = ref<boolean>(false)
+const emits = defineEmits(['close', 'open-voice-modal'])
 
 const classes = computed((): string[] => {
   return isSmallScreen.value
@@ -49,12 +46,9 @@ onClickOutside(el, () => {
     </BaseTooltip>
     <TheSearch />
     <BaseTooltip text="Search with your voice" :left="isSmallScreen">
-      <button @click="isVoiceModalOpen = true" class="p-2 focus:outline-none">
+      <button @click="$emit('open-voice-modal')" class="p-2 focus:outline-none">
         <BaseIcon name="microphone" class="w-5 h-5" />
       </button>
     </BaseTooltip>
-    <Teleport to="body">
-      <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
-    </Teleport>
   </div>
 </template>

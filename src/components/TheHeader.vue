@@ -37,6 +37,8 @@ const emit = defineEmits<{
   (e: 'toggleSidebar', type: null): void
 }>()
 
+const isVoiceModalOpen = ref<boolean>(false)
+
 const isSearchShown = computed(() => {
   return isMobileSearchShown.value || !isSmallScreen.value
 })
@@ -81,6 +83,7 @@ provide(
       </div>
     </div>
     <TheSearchWrapper
+      @open-voice-modal="isVoiceModalOpen = true"
       v-show="isSearchShown"
       :is-small-screen="isSmallScreen"
       @close="closeMobileSearch"
@@ -88,7 +91,10 @@ provide(
 
     <div :class="rightSideClasses">
       <BaseTooltip text="Search with your voice">
-        <button class="sm:hidden p-2 focus:outline-none">
+        <button
+          class="sm:hidden p-2 focus:outline-none"
+          @click="isVoiceModalOpen = true"
+        >
           <BaseIcon name="microphone" class="w-5 h-5" />
         </button>
       </BaseTooltip>
@@ -105,5 +111,8 @@ provide(
       <TheDropdownSettings />
       <ButtonLogin> Sign in </ButtonLogin>
     </div>
+    <Teleport to="body">
+      <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
+    </Teleport>
   </header>
 </template>
