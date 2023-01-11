@@ -18,7 +18,7 @@ const isVoiceModalOpen = ref<boolean>(false)
 
 const classes = computed((): string[] => {
   return isSmallScreen.value
-    ? ['absolute', 'w-full', 'p-2', 'z-10', 'flex']
+    ? ['absolute', 'w-full', 'p-2', 'z-10', 'flex', 'bg-white']
     : [
         'hidden',
         'sm:flex',
