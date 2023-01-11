@@ -55,5 +55,6 @@ onClickOutside(el, () => {
         <BaseIcon name="microphone" class="w-5 h-5" />
       </button>
     </BaseTooltip>
+    <BaseModal />
   </div>
 </template>
