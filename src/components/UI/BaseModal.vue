@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { onClickOutside, onKeyDown } from '@vueuse/core'
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
+
+type Props = {
+  withCloseButton?: boolean
+}
+
+const props = defineProps<Props>()
+
+const { withCloseButton } = toRefs(props)
+
 const emits = defineEmits(['close'])
 
 const close = () => {
@@ -38,7 +47,7 @@ onKeyDown('Escape', () => close())
       <BaseModalOverlay v-if="isOpen" />
     </Transition>
     <div v-if="isOpen" ref="Modal" class="relative bg-white w-2/3 m-8">
-      <div class="p-2 text-right">
+      <div v-if="withCloseButton" class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
       <div class="p-6">

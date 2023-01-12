@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { toRefs } from '@vueuse/shared'
-import { computed } from 'vue'
+import { ref, toRefs } from 'vue'
 
 interface Props {
   results: string[]
@@ -17,6 +16,7 @@ const emits = defineEmits([
   'search-result-click',
 ])
 
+const isSearchPredictionsModalOpen = ref<boolean>(false)
 const classes: string[] = [
   'absolute',
   'top-full',
@@ -68,6 +68,17 @@ const reportLinkClasses: string[] = [
         }}</span>
       </li>
     </ul>
-    <a href="#" :class="reportLinkClasses">Report search predictions</a>
+    <a
+      href="#"
+      :class="reportLinkClasses"
+      @click="isSearchPredictionsModalOpen = true"
+      >Report search predictions</a
+    >
+    <Teleport to="body">
+      <ModalSearchPredictions
+        v-if="isSearchPredictionsModalOpen"
+        @close="isSearchPredictionsModalOpen = false"
+      />
+    </Teleport>
   </div>
 </template>
