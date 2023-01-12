@@ -1,25 +1,34 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
-const isListening = ref<boolean>(true)
-const isRecording = ref<boolean>(false)
-const isQuiet = ref<boolean>(false)
+const STATUS_IDLE = 'idle'
+const STATUS_LISTENING = 'listening'
+const STATUS_RECORDING = 'recording'
+const STATUS_QUIET = 'quiet'
+
 const recordingTimeout = ref<number>()
+const status = ref<string>(STATUS_LISTENING)
 
 const text = computed(() => {
-  if (isQuiet.value) {
-    return "Didn't here that. Try again."
-  } else if (isListening.value || isRecording.value) {
-    return 'Listening...'
-  } else {
-    return 'Mictophone off. Try again.'
+  if (isStatus(STATUS_QUIET)) {
+    return "Didn't hear that. Try again."
   }
+  if (isStatus(STATUS_LISTENING, STATUS_RECORDING)) {
+    return 'Listening...'
+  }
+  return 'Microphone off. Try again.'
 })
 
 const buttonClasses = computed(() => {
+  const bgColorClass = isStatus(STATUS_LISTENING, STATUS_RECORDING)
+    ? 'bg-red-600'
+    : 'bg-gray-300'
+  const textColorClass = isStatus(STATUS_LISTENING, STATUS_RECORDING)
+    ? 'text-white'
+    : 'text-black'
   return [
-    isListening.value ? 'bg-red-600' : 'bg-gray-300',
-    isListening.value ? 'text-white' : 'text-black',
+    bgColorClass,
+    textColorClass,
     'w-16',
     'h-16',
     'mx-auto',
@@ -33,7 +42,7 @@ const buttonClasses = computed(() => {
 })
 const buttonHintClasses = computed(() => {
   return [
-    isListening.value ? 'invisible' : 'visible',
+    isStatus(STATUS_LISTENING, STATUS_RECORDING) ? 'invisible' : 'visible',
     'text-center',
     'text-sm',
     'text-gray-500',
@@ -42,7 +51,7 @@ const buttonHintClasses = computed(() => {
 })
 const buttonAnimationClasses = computed(() => {
   return [
-    isRecording.value ? 'bg-gray-300' : 'border border-gray-300',
+    isStatus(STATUS_RECORDING) ? 'bg-gray-300' : 'border border-gray-300',
     'animate-ping',
     'absolute',
     'w-14',
@@ -53,26 +62,33 @@ const buttonAnimationClasses = computed(() => {
 
 const toggleRecording = () => {
   clearTimeout(recordingTimeout.value)
-  isQuiet.value = false
 
-  if (isRecording.value) {
-    isListening.value = false
-    isRecording.value = false
-  } else if (isListening.value) {
-    isRecording.value = true
-  } else {
-    isListening.value = true
-  }
+  updateStatus()
 
-  if (isListening.value || isRecording.value) {
+  handleRecordingTimeout()
+}
+const handleRecordingTimeout = () => {
+  if (isStatus(STATUS_LISTENING, STATUS_RECORDING)) {
     recordingTimeout.value = setTimeout(() => {
-      isQuiet.value = true
-      isListening.value = false
-      isRecording.value = false
+      updateStatus(STATUS_QUIET)
     }, 5000)
   }
 }
-
+const updateStatus = (handStatus?: string) => {
+  if (handStatus) {
+    status.value = handStatus
+  } else if (isStatus(STATUS_RECORDING)) {
+    status.value = STATUS_IDLE
+  } else if (isStatus(STATUS_LISTENING)) {
+    status.value = STATUS_RECORDING
+  } else {
+    status.value = STATUS_LISTENING
+  }
+}
+const isStatus = (...statuses: string[]) => {
+  return statuses.includes(status.value)
+}
+onMounted(() => handleRecordingTimeout())
 onBeforeUnmount(() => clearTimeout(recordingTimeout.value))
 </script>
 
@@ -80,7 +96,10 @@ onBeforeUnmount(() => clearTimeout(recordingTimeout.value))
   <BaseModal>
     <div class="text-2xl mb-52">{{ text }}</div>
     <div class="flex justify-center items-center">
-      <span v-show="isListening" :class="buttonAnimationClasses" />
+      <span
+        v-show="isStatus('listening', 'recording')"
+        :class="buttonAnimationClasses"
+      />
       <button :class="buttonClasses" @click="toggleRecording">
         <BaseIcon name="microphone" />
       </button>
